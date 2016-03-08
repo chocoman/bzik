@@ -1,0 +1,5 @@
+all: followred
+
+followred: followred.cpp
+	g++ followred.cpp -o  simpletest_raspicam_cv -I/usr/local/include/ -lraspicam -lraspicam_cv -lopencv_core -lopencv_highgui -std=c++11
+

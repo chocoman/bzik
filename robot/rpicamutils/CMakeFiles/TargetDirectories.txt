@@ -1,0 +1,1 @@
+/home/pi/robot/rpicamutils/CMakeFiles/raspicam_cv_still_test.dir

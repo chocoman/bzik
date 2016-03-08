@@ -1,0 +1,8 @@
+cmake_minimum_required( VERSION 2.8 )
+project( followred )
+find_package( OpenCV REQUIRED )
+set(CMAKE_MODULE_PATH  "/usr/local/lib/cmake/") 
+find_package( raspicam REQUIRED )
+add_executable( followred followred.cpp )
+target_link_libraries( followred ${OpenCV_LIBS} ${raspicam_LIBS} )
+set( CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS}" )

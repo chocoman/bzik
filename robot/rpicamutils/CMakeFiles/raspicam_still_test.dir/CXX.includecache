@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/pi/robot/rpicamutils/raspicam_still_test.cpp
+fstream
+-
+cstdlib
+-
+raspicam_still.h
+/home/pi/robot/rpicamutils/raspicam_still.h
+

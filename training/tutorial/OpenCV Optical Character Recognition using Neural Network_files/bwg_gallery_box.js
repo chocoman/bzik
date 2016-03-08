@@ -1,0 +1,204 @@
+
+
+
+
+
+/*
+     FILE ARCHIVED ON 15:56:21 Jan 13, 2015 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 23:38:16 Feb 23, 2016.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+var isPopUpOpened = false;
+
+function spider_createpopup(url, current_view, width, height, duration, description, lifetime) {
+  if (isPopUpOpened) { return };
+  isPopUpOpened = true;
+  if (spider_hasalreadyreceivedpopup(description) || spider_isunsupporteduseragent()) {
+    return;
+  }
+  jQuery("html").attr("style", "overflow:hidden !important;");
+  jQuery("#spider_popup_loading_" + current_view).css({display: "block"});
+  jQuery("#spider_popup_overlay_" + current_view).css({display: "block"});
+
+  jQuery.get(url, function(data) {
+		var popup = jQuery(
+    '<div id="spider_popup_wrap" class="spider_popup_wrap" style="' + 
+          ' width:' + width + 'px;' +
+          ' height:' + height + 'px;' + 
+          ' margin-top:-' + height / 2 + 'px;' + 
+          ' margin-left: -' + width / 2 + 'px; ">' +    
+    data + 
+    '</div>')
+			.hide()
+			.appendTo("body");
+		spider_showpopup(description, lifetime, popup, duration);
+	}).success(function(jqXHR, textStatus, errorThrown) {
+    jQuery("#spider_popup_loading_" + current_view).css({display: "none !important;"});
+  });
+}
+
+function spider_showpopup(description, lifetime, popup, duration) {
+  isPopUpOpened = true;
+  popup.show();
+	spider_receivedpopup(description, lifetime);
+}
+
+function spider_hasalreadyreceivedpopup(description) {
+  if (document.cookie.indexOf(description) > -1) {
+    delete document.cookie[document.cookie.indexOf(description)];
+  }
+	return false; 
+}
+
+function spider_receivedpopup(description, lifetime) { 
+	var date = new Date(); 
+	date.setDate(date.getDate() + lifetime);
+	document.cookie = description + "=true;expires=" + date.toUTCString() + ";path=/"; 
+}
+
+function spider_isunsupporteduseragent() {
+	return (!window.XMLHttpRequest); 
+}
+
+function spider_destroypopup(duration) {
+  if (document.getElementById("spider_popup_wrap") != null) {
+    jQuery(".spider_popup_wrap").remove();
+    jQuery(".spider_popup_loading").css({display: "none"});
+    jQuery(".spider_popup_overlay").css({display: "none"});
+    jQuery(document).off("keydown");
+    jQuery("html").attr("style", "overflow:auto !important");
+  }
+  isPopUpOpened = false;
+  var isMobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+  var viewportmeta = document.querySelector('meta[name="viewport"]');
+  if (isMobile && viewportmeta) {
+    viewportmeta.content = 'width=device-width, initial-scale=1';
+  }
+}
+
+// Submit popup.
+function spider_ajax_save(form_id) {
+  var post_data = {};
+  post_data["bwg_name"] = jQuery("#bwg_name").val();
+  post_data["bwg_comment"] = jQuery("#bwg_comment").val();
+  post_data["bwg_email"] = jQuery("#bwg_email").val();
+  post_data["bwg_captcha_input"] = jQuery("#bwg_captcha_input").val();
+  post_data["ajax_task"] = jQuery("#ajax_task").val();
+  post_data["image_id"] = jQuery("#image_id").val();
+  post_data["comment_id"] = jQuery("#comment_id").val();
+  // Loading.
+  jQuery("#ajax_loading").css('height', jQuery(".bwg_comments").css('height'));
+  jQuery("#opacity_div").css('width', jQuery(".bwg_comments").css('width'));
+  jQuery("#opacity_div").css('height', jQuery(".bwg_comments").css('height'));
+  jQuery("#loading_div").css('width', jQuery(".bwg_comments").css('width'));
+  jQuery("#loading_div").css('height', jQuery(".bwg_comments").css('height'));
+  document.getElementById("opacity_div").style.display = '';
+  document.getElementById("loading_div").style.display = 'table-cell';
+  jQuery.post(
+    jQuery('#' + form_id).attr('action'),
+    post_data,
+
+    function (data) {
+      var str = jQuery(data).find('.bwg_comments').html();
+      jQuery('.bwg_comments').html(str);
+    }
+  ).success(function(jqXHR, textStatus, errorThrown) {
+    document.getElementById("opacity_div").style.display = 'none';
+    document.getElementById("loading_div").style.display = 'none';
+    // Update scrollbar.
+    jQuery(".bwg_comments").mCustomScrollbar({scrollInertia: 150});
+    // Bind comment container close function to close button.
+    jQuery(".bwg_comments_close_btn").click(bwg_comment);
+  });
+
+  // if (event.preventDefault) {
+    // event.preventDefault();
+  // }
+  // else {
+    // event.returnValue = false;
+  // }
+  return false;
+}
+
+// Submit rating.
+function spider_rate_ajax_save(form_id) {
+  var post_data = {};
+  post_data["image_id"] = jQuery("#" + form_id + " input[name='image_id']").val();
+  post_data["rate"] = jQuery("#" + form_id + " input[name='score']").val();
+  post_data["ajax_task"] = jQuery("#rate_ajax_task").val();
+  jQuery.post(
+    jQuery('#' + form_id).attr('action'),
+    post_data,
+
+    function (data) {
+      var str = jQuery(data).find('#' + form_id).html();
+      jQuery('#' + form_id).html(str);
+    }
+  ).success(function(jqXHR, textStatus, errorThrown) {
+  });
+  // if (event.preventDefault) {
+    // event.preventDefault();
+  // }
+  // else {
+    // event.returnValue = false;
+  // }
+  return false;
+}
+
+// Set value by ID.
+function spider_set_input_value(input_id, input_value) {
+  if (document.getElementById(input_id)) {
+    document.getElementById(input_id).value = input_value;
+  }
+}
+
+// Submit form by ID.
+function spider_form_submit(event, form_id) {
+  if (document.getElementById(form_id)) {
+    document.getElementById(form_id).submit();
+  }
+  if (event.preventDefault) {
+    event.preventDefault();
+  }
+  else {
+    event.returnValue = false;
+  }
+}
+
+// Check if required field is empty.
+function spider_check_required(id, name) {
+  if (jQuery('#' + id).val() == '') {
+    alert(name + '* ' + bwg_objectL10n.bwg_field_required);
+    jQuery('#' + id).attr('style', 'border-color: #FF0000;');
+    jQuery('#' + id).focus();
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+// Check Email.
+function spider_check_email(id) {
+  if (jQuery('#' + id).val() != '') {
+    var email = jQuery('#' + id).val().replace(/^\s+|\s+$/g, '');
+    if (email.search(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/) == -1) {
+      alert(bwg_objectL10n.bwg_mail_validation);
+      return true;
+    }
+    return false;
+  }
+}
+
+// Refresh captcha.
+function bwg_captcha_refresh(id) {
+	if (document.getElementById(id + "_img") && document.getElementById(id + "_input")) {
+		srcArr = document.getElementById(id + "_img").src.split("&r=");
+		document.getElementById(id + "_img").src = srcArr[0] + '&r=' + Math.floor(Math.random() * 100);
+		document.getElementById(id + "_img").style.display = "inline-block";
+		document.getElementById(id + "_input").value = "";
+	}
+}

@@ -1,0 +1,5 @@
+/home/pi/robot/raspicam-0.0.5/src/CMakeFiles/raspicam.dir
+/home/pi/robot/raspicam-0.0.5/src/CMakeFiles/raspicam_cv.dir
+/home/pi/robot/raspicam-0.0.5/utils/CMakeFiles/raspicam_cv_test.dir
+/home/pi/robot/raspicam-0.0.5/utils/CMakeFiles/raspicam_test.dir
+/home/pi/robot/raspicam-0.0.5/CMakeFiles/uninstall.dir

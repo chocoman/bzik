@@ -1,0 +1,1 @@
+/home/pi/robot/simpletest_raspicam/CMakeFiles/simpletest_raspicam.dir

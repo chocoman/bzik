@@ -1,0 +1,2 @@
+/home/martin/Documents/programovani/bzik/training/CMakeFiles/trainNetwork.dir
+/home/martin/Documents/programovani/bzik/training/CMakeFiles/training.dir

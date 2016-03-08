@@ -1,0 +1,56 @@
+#include <SDL/SDL.h>
+#include <stdlib.h>
+#include <math.h>
+#include <csignal>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <chrono>
+#include <thread>
+
+#include "/usr/local/include/raspicam/raspicam_cv.h"
+#include "opencv2/core/core.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/photo/photo.hpp"
+#include "opencv2/features2d/features2d.hpp"
+#include "opencv2/objdetect/objdetect.hpp"
+#include "opencv2/highgui/highgui.hpp"
+
+
+using namespace std;
+using namespace cv;
+raspicam::RaspiCam_Cv camera;
+
+int prepareCamera() {
+        camera.set(CV_CAP_PROP_FRAME_WIDTH,192);
+        camera.set(CV_CAP_PROP_FRAME_HEIGHT,108);
+        if(!camera.open()){
+                cout<<"Error with camera"<<endl;
+        }
+	this_thread::sleep_for(chrono::milliseconds(2000));
+}
+
+cv::Mat capture() {
+	cout<<"capturing"<<endl;
+	if ( !camera.grab() ) {
+		cerr<<"Error in grab"<<endl;
+	}
+	cv::Mat imgBGR;
+	camera.retrieve( imgBGR );
+	return imgBGR;
+}
+int analyze(cv::Mat imgBGR) {
+	Mat imgHSV(imgBGR.rows,imgBGR.cols,CV_8UC3);
+	Mat hue(imgBGR.rows,imgBGR.cols,CV_8UC1);
+	Mat out[] = {hue};
+	int from_to[] = { 0,0 };
+	cvtColor(imgBGR, imgHSV, CV_BGR2HSV);
+//	mixChannels(&imgHSV, 1, out, 1, from_to, 1);
+//	imwrite("test.png",out[0]);
+}
+int main(int ARGC, char *argv[]) {
+        cout << std::unitbuf;
+        cout << "Starting program\n";
+        prepareCamera();
+	capture();
+}           

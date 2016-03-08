@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/martin/Documents/programovani/bzik/training/training.cpp
+stdlib.h
+-
+opencv2/opencv.hpp
+/home/martin/Documents/programovani/bzik/training/opencv2/opencv.hpp
+opencv2/core/core.hpp
+/home/martin/Documents/programovani/bzik/training/opencv2/core/core.hpp
+opencv2/highgui/highgui.hpp
+/home/martin/Documents/programovani/bzik/training/opencv2/highgui/highgui.hpp
+string.h
+-
+fstream
+-
+

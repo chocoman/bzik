@@ -1,0 +1,237 @@
+#include <SDL/SDL.h>
+#include <stdlib.h>
+#include <math.h>
+#include <csignal>
+#include <iostream>
+#include <fstream>
+#include <chrono>
+#include <thread>
+#include <raspicam/raspicam_cv.h>
+
+#define PI 3.14159265359
+#define MAX_X 32768
+
+using namespace std;
+
+ofstream *pin24;
+ofstream *pin25;
+ofstream *pin9;
+ofstream *pin11;
+
+
+rpiPWM1 *pwm;
+
+void set_speed(int spd) {
+	pwm->setDutyCycleCount(spd);
+};
+int pulsator(float q, int i) {
+        if (q<0) return -pulsator(-q,i);
+        int numerator = (int)floor(abs(q*64));
+        int reversed = ((i&1)  << 5) |
+                       ((i&2)  << 3) |
+                       ((i&4)  << 1) |
+                       ((i&8)  >> 1) |
+                       ((i&16) >> 3) |
+                       ((i&32) >> 5);
+        if (reversed < numerator) return 1;
+        else return 0;
+}
+
+void set_dir(int left, int right) {
+	*pin24 << "0";
+	*pin25 << "0";
+	*pin9 << "0";
+	*pin11 << "0";
+
+	switch(right)
+	{
+	case 0:
+		break;
+	case 1:
+		*pin25 << "1"; break;
+	case -1:
+		*pin24 << "1"; break;
+	}
+
+	switch(left)
+	{
+	case 0:
+		break;
+	case 1:
+		*pin11 << "1"; break;
+	case -1:
+		*pin9 << "1"; break;
+	}
+
+	pin24 -> flush();
+	pin25 -> flush();
+	pin9 -> flush();
+	pin11 -> flush();
+};
+
+void cleanup(int signum)
+{
+	delete pwm;
+	ofstream gpiunexport("/sys/class/gpio/unexport");
+	gpiunexport << std::unitbuf;
+	*pin24 << "0";
+	pin24->close();
+	*pin25 << "0";
+	pin25->close();
+	*pin9 << "0";
+	pin9->close();
+	*pin11 << "0";
+	pin11->close();
+	ofstream pindir("/sys/class/gpio/gpio9/direction");
+	pindir << "in";
+	pindir.close(); pindir.open("/sys/class/gpio/gpio11/direction");
+	pindir << "in";
+	pindir.close(); pindir.open("/sys/class/gpio/gpio24/direction");
+	pindir << "in";
+	pindir.close(); pindir.open("/sys/class/gpio/gpio25/direction");
+	pindir << "in";
+	pindir.close();
+	gpiunexport << "24";
+	gpiunexport.flush();
+	gpiunexport << "25";
+	gpiunexport.flush();
+	gpiunexport << "9";
+	gpiunexport.flush();
+	gpiunexport << "11";
+	gpiunexport.flush();
+	gpiunexport.close();
+	this_thread::sleep_for(chrono::milliseconds(900));
+	exit(0);
+}
+
+int main(int ARGC, char *argv[]) {
+	std::signal(SIGINT, cleanup);
+	std::signal(SIGTERM, cleanup);
+	cout << std::unitbuf;
+	cout << "Starting program\n";
+	int rc = SDL_Init(SDL_INIT_JOYSTICK);
+	if (rc<0) {
+		printf("Error");
+		return -1;
+	};
+	ofstream gpiexport("/sys/class/gpio/export");
+	gpiexport << "9";
+	gpiexport.flush();
+	gpiexport << "11";
+	gpiexport.flush();
+	gpiexport << "24";
+	gpiexport.flush();
+	gpiexport << "25";
+	gpiexport.close();
+	this_thread::sleep_for(chrono::milliseconds(900));
+	ofstream pindir("/sys/class/gpio/gpio9/direction");
+	pindir << "out";
+	pindir.close(); pindir.open("/sys/class/gpio/gpio11/direction");
+	pindir << "out";
+	pindir.close(); pindir.open("/sys/class/gpio/gpio24/direction");
+	pindir << "out";
+	pindir.close(); pindir.open("/sys/class/gpio/gpio25/direction");
+	pindir << "out";
+	pindir.close();
+	cout << "Searching for joysticks\n";
+	while (SDL_NumJoysticks() == 0)
+	{
+		cout << "No joysticks found, retrying in 5\n";
+		sleep(5);
+		SDL_Quit();
+		SDL_Init(SDL_INIT_JOYSTICK);
+	} 
+	
+	SDL_Joystick *js = SDL_JoystickOpen(0);
+//	raspicam::RaspiCam_Cv camera;
+	cout << "Found joystick, starting robot\n";
+//	if(!camera.open()){
+//		cout<<"Error with camer"<<endl;
+//	}
+//	camera.set(CV_CAP_PROP_FRAME_WIDTH,120);
+//	camera.set(CV_CAP_PROP_FRAME_HEIGHT,96);
+	int ok = 1;
+	double x;
+	double y;
+	double r;
+	double phi;
+	pwm = new rpiPWM1 (1000.0, 1024, 1.0, rpiPWM1::MSMODE);	
+	pin24 = new ofstream("/sys/class/gpio/gpio24/value");
+	pin25 = new ofstream("/sys/class/gpio/gpio25/value");
+	pin9 = new ofstream("/sys/class/gpio/gpio9/value");
+	pin11 = new ofstream("/sys/class/gpio/gpio11/value");
+	
+	int i = 0;
+	float left, right;
+	clock_t start = clock();
+	while (ok){
+
+		if(i>=0){i++;};
+		SDL_JoystickUpdate();
+		x = SDL_JoystickGetAxis(js,0);
+		y = SDL_JoystickGetAxis(js,1);
+		
+		if (abs(x)>abs(y)) r=abs(x); else r=abs(y);
+		if (x==0 && y==0) phi =1;
+		else phi = atan2(x,y)+PI; //axes intentionally swapped
+		if (i % 10 ==0) cout << " phi:" << phi <<  " R:" << r << "\n";
+		int spd = 1024*r/MAX_X;
+		if(spd < 100) {
+			set_dir(0,0);
+	/*	
+		//discrete controls
+		} else if(phi < 1*PI/8) {
+			set_dir(1,1);
+		} else if(phi < 3*PI/8){
+			set_dir(0,1);
+		} else if(phi < 5*PI/8){
+			set_dir(-1,1);
+		} else if(phi < 7*PI/8){
+			set_dir(-1,0);
+		} else if(phi < 9*PI/8){
+			set_dir(-1,-1);
+		} else if(phi < 11*PI/8){
+			set_dir(0,-1);
+		} else if(phi < 13*PI/8){
+			set_dir(1,-1);
+		} else if(phi < 15*PI/8){
+			set_dir(1,0);
+		} else {
+			set_dir(1,1);
+		}
+*/
+// continuous controls
+		} else if(phi < PI/4) {
+			right = 1 - (phi/(PI/4));
+			set_dir(1,pulsator(right,i));
+		} else if(phi < PI/2){
+			right = -(phi - PI/4)/(PI/4);
+			set_dir(1,pulsator(right,i));
+		} else if(phi < 3*PI/4){
+			left = 1 - (phi - PI/2)/(PI/4);
+			set_dir(pulsator(left,i),-1);
+		} else if(phi < PI){
+			left = -(phi - 3*PI/4)/(PI/4);
+			set_dir(pulsator(left,i),-1);
+		} else if(phi < 5*PI/4){
+			right = -(1-(phi-PI)/(PI/4));
+			set_dir(-1,pulsator(right,i));
+		} else if(phi < 3*PI/2){
+			right = (phi - 5*PI/4)/(PI/4);
+			set_dir(-1,pulsator(right,i));
+		} else if(phi < 7*PI/4){
+			left = -(1-(phi-3*PI/2)/(PI/4));
+			set_dir(pulsator(left,i),1);
+		} else {
+			left = (phi-7*PI/4)/(PI/4);
+			set_dir(pulsator(left,i),1);
+		}
+
+		set_speed(spd);
+	        this_thread::sleep_for(chrono::milliseconds(10));
+//		camera.grab();
+//		cv::Mat img;
+//		camera.retrieve( img );
+//		cout << clock()-start << "\n" ;
+	}
+}

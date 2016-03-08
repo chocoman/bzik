@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#" lang="en-US"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+
+<script src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/analytics.js"></script>
+<script type="text/javascript">archive_analytics.values.server_name="wwwb-app4.us.archive.org";archive_analytics.values.server_ms=280;</script>
+<link type="text/css" rel="stylesheet" href="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/banner-styles.css">
+
+
+<meta charset="UTF-8">
+<title>OpenCV Optical Character Recognition using Neural Network</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://www.nithinrajs.in/xmlrpc.php">
+<!--[if lt IE 9]>
+<script src="/web/20150320014258/http://www.nithinrajs.in/wp-content/themes/duena/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+<!--[if (gt IE 9)|!(IE)]>
+<script src="/web/20150320014258/http://www.nithinrajs.in/wp-content/themes/duena/js/jquery.mobile.customized.min.js" type="text/javascript"></script>
+<![endif]-->
+
+<!-- SEO Ultimate (/web/20150320014258/http://www.seodesignsolutions.com/wordpress-seo/) -->
+	<meta name="description" content="Opencv Example Neural network ML module Optical character recognition">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="OCR using Artificial Neural Network (OpenCV) – Part 3(final) – Training and Classification">
+	<meta property="og:description" content="Opencv Example Neural network ML module Optical character recognition">
+	<meta property="og:url" content="http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing/">
+	<meta property="og:image" content=" http://www.nithinrajs.in/wp-content/uploads/2013/08/ocr_opencv_cover.jpg">
+	<meta property="article:published_time" content="2013-09-28">
+	<meta property="article:modified_time" content="2013-09-28">
+	<meta property="article:author" content="http://www.nithinrajs.in/author/nithinrajs2/">
+	<meta property="article:tag" content="Image Processing">
+	<meta property="article:tag" content="OpenCV">
+	<meta property="og:site_name" content="Nithin Raj S.">
+	<meta name="twitter:card" content="summary">
+<!-- /SEO Ultimate -->
+
+<link rel="alternate" type="application/rss+xml" title="Nithin Raj S. » Feed" href="http://www.nithinrajs.in/feed/">
+<link rel="alternate" type="application/rss+xml" title="Nithin Raj S. » Comments Feed" href="http://www.nithinrajs.in/comments/feed/">
+
+            <script type="text/javascript">//<![CDATA[
+            // Google Analytics for WordPress by Yoast v4.3.5 | /web/20150320014258/http://yoast.com/wordpress/google-analytics/
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-41901047-1']);
+				            _gaq.push(['_trackPageview']);
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? '/web/20150320014258/https://ssl' : '/web/20150320014258/http://www') + '.google-analytics.com/ga.js';
+
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+            //]]></script>
+			<link rel="alternate" type="application/rss+xml" title="Nithin Raj S. » OCR using Artificial Neural Network (OpenCV) – Part 3(final) – Training and Classification Comments Feed" href="http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing/feed/">
+<link rel="stylesheet" id="bwg_frontend-css" href="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/bwg_frontend.css" type="text/css" media="all">
+<link rel="stylesheet" id="bwg_font-awesome-css" href="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/font-awesome.css" type="text/css" media="all">
+<link rel="stylesheet" id="bwg_mCustomScrollbar-css" href="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/jquery.css" type="text/css" media="all">
+<link rel="stylesheet" id="ssbaFont-css" href="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/css.css" type="text/css" media="all">
+<link rel="stylesheet" id="duena-style-css" href="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="duena-bootstrap-css" href="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/bootstrap.css" type="text/css" media="all">
+<link rel="stylesheet" id="duena-responsive-css" href="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/responsive.css" type="text/css" media="all">
+<link rel="stylesheet" id="flexslider-css" href="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/flexslider.css" type="text/css" media="all">
+<link rel="stylesheet" id="magnific-css" href="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/magnific-popup.css" type="text/css" media="all">
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='duena_ie-css'  href='/web/20150320014258/http://www.nithinrajs.in/wp-content/themes/duena/css/ie.css?ver=3.9.3' type='text/css' media='all' />
+<![endif]-->
+<link rel="stylesheet" id="core3.0-css" href="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/shCore.css" type="text/css" media="all">
+<link rel="stylesheet" id="core-Midnight3.0-css" href="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/shCoreMidnight.css" type="text/css" media="all">
+<link rel="stylesheet" id="theme-Midnight3.0-css" href="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/shThemeMidnight.css" type="text/css" media="all">
+<script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/jquery_004.js"></script>
+<script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/jquery-migrate.js"></script>
+<script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/bwg_frontend.js"></script>
+<script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/jquery_006.js"></script>
+<script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/jquery_005.js"></script>
+<script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/jquery_007.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var bwg_objectL10n = {"bwg_field_required":"field is required.","bwg_mail_validation":"This is not a valid email address.","bwg_search_result":"There are no images matching your search."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/bwg_gallery_box.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.nithinrajs.in/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.nithinrajs.in/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="OCR using Artificial Neural Network (OpenCV) – Part 2 – Preprocessing" href="http://www.nithinrajs.in/ocr-using-artificial-neural-network-opencv-part-2-preprocessing/">
+<meta name="generator" content="WordPress 3.9.3">
+<link rel="canonical" href="http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing/">
+<link rel="shortlink" href="http://www.nithinrajs.in/?p=150">
+<style type="text/css">	.ssba {
+											
+											
+											
+											
+										}
+										.ssba img		
+										{ 	
+											width: 32px !important;
+											padding: 6px;
+											border:  0;
+											box-shadow: none !important;
+											display: inline !important;
+											vertical-align: middle;
+										}
+										.ssba, .ssba a		
+										{
+											text-decoration:none;
+											background: none;
+											font-family: Indie Flower;
+											font-size: 	20px;
+											
+											
+										}</style>	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+</head>
+
+<body class="single single-post postid-150 single-format-standard"><div class="" id="wm-ipp" style="display: block;" lang="en">
+
+<div style="position:fixed;left:0;top:0;width:100%!important">
+<div id="wm-ipp-inside">
+   <table style="width:100%;"><tbody><tr>
+   <td id="wm-logo">
+       <a href="https://web.archive.org/web/" title="Wayback Machine home page"><img src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/wayback-toolbar-logo.png" alt="Wayback Machine" border="0" height="39" width="110"></a>
+   </td>
+   <td class="c">
+       <table style="margin:0 auto;"><tbody><tr>
+       <td class="u" colspan="2">
+       <form target="_top" method="get" action="/web/form-submit.jsp" name="wmtb" id="wmtb"><input name="url" id="wmtbURL" value="http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing" style="width:400px;" onfocus="this.focus();this.select();" type="text"><input name="type" value="replay" type="hidden"><input name="date" value="20150320014258" type="hidden"><input value="Go" type="submit"><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td class="n" rowspan="2">
+           <table><tbody>
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr class="m">
+           	<td class="b" nowrap="nowrap">
+		
+		    <a href="https://web.archive.org/web/20131003121314/http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing/" title="3 Oct 2013">OCT</a>
+		
+		</td>
+		<td class="c" id="displayMonthEl" title="You are here: 1:42:58 Mar 20, 2015">Mar</td>
+		<td class="f" nowrap="nowrap">
+		
+		    <a href="https://web.archive.org/web/20150509095123/http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing" title="9 May 2015"><strong>MAY</strong></a>
+		
+                </td>
+	    </tr>
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr class="d">
+               <td class="b" nowrap="nowrap">
+               
+                   <a href="https://web.archive.org/web/20131003121314/http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing/" title="12:13:14 Oct 3, 2013"><img src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/wm_tb_prv_on.png" alt="Previous capture" border="0" height="16" width="14"></a>
+               
+               </td>
+               <td class="c" id="displayDayEl" style="width:34px;font-size:24px;" title="You are here: 1:42:58 Mar 20, 2015">20</td>
+	       <td class="f" nowrap="nowrap">
+               
+		   <a href="https://web.archive.org/web/20150509095123/http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing" title="9:51:23 May 9, 2015"><img src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/wm_tb_nxt_on.png" alt="Next capture" border="0" height="16" width="14"></a>
+	       
+	       </td>
+           </tr>
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr class="y">
+	       <td class="b" nowrap="nowrap">
+               
+                   <a href="https://web.archive.org/web/20131003121314/http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing/" title="3 Oct 2013"><strong>2013</strong></a>
+               
+               </td>
+               <td class="c" id="displayYearEl" title="You are here: 1:42:58 Mar 20, 2015">2015</td>
+	       <td class="f" nowrap="nowrap">
+               
+                   2016
+               
+	       </td>
+           </tr>
+           </tbody></table>
+       </td>
+       </tr>
+       <tr>
+       <td class="s">
+           <a class="t" href="https://web.archive.org/web/20150320014258*/http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing" title="See a list of every capture for this URL">12 captures</a>
+           <div class="r" title="Timespan for captures of this URL">2 Oct 13 - 11 Aug 15</div>
+       </td>
+       <td class="k">
+       <a href="https://web.archive.org/web/19990415000000/http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" title="Explore captures for this URL">
+	 <img id="sparklineImgId" alt="sparklines" onmouseover="__wm.st(1)" onmouseout="__wm.st(0)" onmousemove="__wm.mv(event,this)" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/graph.png" border="0" height="27" width="525">
+       <div style="display: none; width: 25px; height: 27px; left: 75px;" class="yt"></div><div style="display: none; width: 2px; height: 27px; left: 82px;" class="mt"></div></div>
+       </a>
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td class="r">
+       <a href="#close" onclick="__wm.h();return false;" style="background-image:url(/static/images/toolbar/wm_tb_close.png);top:5px;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="background-image:url(/static/images/toolbar/wm_tb_help.png);bottom:5px;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+</div>
+</div>
+</div>
+
+
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+<script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/disclaim-element.js"></script>
+<script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/graph-calc.js"></script>
+<script type="text/javascript">//<![CDATA[
+var __wm = (function(imgWidth,imgHeight,yearImgWidth,monthImgWidth){
+var wbPrefix = "/web/";
+var wbCurrentUrl = "http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing";
+
+var firstYear = 1996;
+var displayDay = "20";
+var displayMonth = "Mar";
+var displayYear = "2015";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+var $D=document,$=function(n){return document.getElementById(n)};
+var trackerVal,curYear = -1,curMonth = -1;
+var yearTracker,monthTracker;
+function showTrackers(val) {
+  if (val===trackerVal) return;
+  var $ipp=$("wm-ipp");
+  var $y=$("displayYearEl"),$m=$("displayMonthEl"),$d=$("displayDayEl");
+  if (val) {
+    $ipp.className="hi";
+  } else {
+    $ipp.className="";
+    $y.innerHTML=displayYear;$m.innerHTML=displayMonth;$d.innerHTML=displayDay;
+  }
+  yearTracker.style.display=val?"inline":"none";
+  monthTracker.style.display=val?"inline":"none";
+  trackerVal = val;
+}
+function trackMouseMove(event,element) {
+  var eventX = getEventX(event);
+  var elementX = getElementX(element);
+  var xOff = Math.min(Math.max(0, eventX - elementX),imgWidth);
+  var monthOff = xOff % yearImgWidth;
+
+  var year = Math.floor(xOff / yearImgWidth);
+  var monthOfYear = Math.min(11,Math.floor(monthOff / monthImgWidth));
+  // 1 extra border pixel at the left edge of the year:
+  var month = (year * 12) + monthOfYear;
+  var day = monthOff % 2==1?15:1;
+  var dateString = zeroPad(year + firstYear) + zeroPad(monthOfYear+1,2) +
+    zeroPad(day,2) + "000000";
+
+  $("displayYearEl").innerHTML=year+firstYear;
+  $("displayMonthEl").innerHTML=prettyMonths[monthOfYear];
+  // looks too jarring when it changes..
+  //$("displayDayEl").innerHTML=zeroPad(day,2);
+  var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+  $("wm-graph-anchor").href=url;
+
+  if(curYear != year) {
+    var yrOff = year * yearImgWidth;
+    yearTracker.style.left = yrOff + "px";
+    curYear = year;
+  }
+  if(curMonth != month) {
+    var mtOff = year + (month * monthImgWidth) + 1;
+    monthTracker.style.left = mtOff + "px";
+    curMonth = month;
+  }
+}
+function hideToolbar() {
+  $("wm-ipp").style.display="none";
+}
+function bootstrap() {
+  var $spk=$("wm-ipp-sparkline");
+  yearTracker=$D.createElement('div');
+  yearTracker.className='yt';
+  with(yearTracker.style){
+    display='none';width=yearImgWidth+"px";height=imgHeight+"px";
+  }
+  monthTracker=$D.createElement('div');
+  monthTracker.className='mt';
+  with(monthTracker.style){
+    display='none';width=monthImgWidth+"px";height=imgHeight+"px";
+  }
+  $spk.appendChild(yearTracker);
+  $spk.appendChild(monthTracker);
+
+  var $ipp=$("wm-ipp");
+  $ipp&&disclaimElement($ipp);
+}
+return{st:showTrackers,mv:trackMouseMove,h:hideToolbar,bt:bootstrap};
+})(525, 27, 25, 2);//]]>
+</script>
+<style type="text/css">
+body {
+  margin-top:0 !important;
+  padding-top:0 !important;
+  min-width:800px !important;
+}
+</style>
+
+<script type="text/javascript">__wm.bt();</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+<div class="page-wrapper">
+		<header id="header" role="banner">
+		<div class="container clearfix">
+			<div class="logo">
+												<h2 class="text-logo"><a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/" title="Nithin Raj S." rel="home">Nithin Raj S.</a></h2>
+											<p class="site-description"></p>
+			</div>
+			  
+	          <div id="top-search">
+	            <form method="get" action="/web/20150320014258/http://www.nithinrajs.in/">
+	              <input name="s" class="input-search" type="text"><input value="" id="submit" type="submit">
+	            </form>
+	          </div>  
+	        	        <div class="clear"></div>
+			<nav id="site-navigation" class="main-nav" role="navigation">
+				<div class="navbar_inner">
+				<div class="sf-menu"><ul class="sf-js-enabled"><li><a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/">Home</a></li><li class="page_item page-item-190 current_page_parent"><a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/blog/">Blog</a></li><li class="page_item page-item-249 page_item_has_children"><a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/projects/">Projects</a><ul style="display: none; visibility: hidden;" class="children sub-menu"><li class="page_item page-item-265"><a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/projects/agglomerative-clustering/">Agglomerative Clustering</a></li><li class="page_item page-item-191"><a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/projects/text-classification-naive-bayesian-classifier/">Bayesian Classifier</a></li><li class="page_item page-item-269"><a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/projects/fast-apriori/">Fast Apriori</a></li><li class="page_item page-item-276"><a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/projects/gre-android-app/">GRE Android App</a></li><li class="page_item page-item-273"><a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/projects/leave-management-system/">Leave Management System</a></li><li class="page_item page-item-261"><a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/projects/ocr/">OCR</a></li><li class="page_item page-item-256"><a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/projects/random-forest/">Random Forest</a></li></ul></li></ul><select style="display: inline-block;" class="select-menu"><option selected="selected" value="#">Navigate to...</option><option value="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/">Home</option><option value="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/blog/">Blog</option><option value="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/projects/">Projects</option><option value="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/projects/agglomerative-clustering/">–Agglomerative Clustering</option><option value="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/projects/text-classification-naive-bayesian-classifier/">–Bayesian Classifier</option><option value="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/projects/fast-apriori/">–Fast Apriori</option><option value="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/projects/gre-android-app/">–GRE Android App</option><option value="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/projects/leave-management-system/">–Leave Management System</option><option value="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/projects/ocr/">–OCR</option><option value="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/projects/random-forest/">–Random Forest</option></select></div>
+				</div>
+			</nav><!-- #site-navigation -->
+		</div>
+	</header><!-- #masthead -->
+		<div id="main" class="site-main">
+		<div class="container">
+							<ul class="breadcrumb breadcrumb__t"><li><a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/">Home</a></li> <li class="divider">/</li> <a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/category/image-processing/" title="View all posts in Image Processing">Image Processing</a> <li class="divider">/</li> <li class="active">OCR using Artificial Neural Network (OpenCV) – Part 3(final) – Training and Classification</li></ul>						<div class="row">
+	<div id="primary" class="span8 right">
+		<div id="content" class="site-content" role="main">
+
+					<article id="post-150" class="post-150 post type-post status-publish format-standard has-post-thumbnail hentry category-image-processing category-opencv post__holder">
+
+										<figure class="featured-thumbnail thumbnail"><img src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/ocr_opencv_cover.jpg" class="attachment-post-thumbnail wp-post-image" alt="ocr_opencv_cover" height="207" width="470"></figure>
+			
+				<header class="post-header ">
+															
+					<h1 class="post-title">OCR using Artificial Neural Network (OpenCV) – Part 3(final) – Training and Classification</h1>
+					
+									
+				</header>
+				
+								
+				<!-- Post Content -->
+				<div class="post_content">
+				
+					<p>I have been busy for couple of weeks and I don’t think i will be
+ free in near future. I wanted to write a detailed description of the 
+code, but I don’t think it is possible with my current schedule. I have 
+written extensive comments so that it becomes easy to understand the 
+code.</p>
+<h2>Training</h2>
+<p>I will just summarize the process &nbsp;that is happening.</p>
+<ul>
+<li><span style="line-height: 13px;">Read the two text files&nbsp;trainingset.txt and testset.txt(see the previous post to know how to generate them.</span></li>
+<li>Define the structure of the neural network and decide the training 
+parameters. I created a 3 layer neural network.(256-&gt;16-&gt;10).</li>
+<li>Train the neural network with data from trainigset.txt.</li>
+<li>Write the model generated into an XML file.</li>
+<li>Use testset.txt to check the accuracy of the model generated.</li>
+</ul>
+<p><span id="more-150"></span></p>
+<div><div id="highlighter_236689" class="syntaxhighlighter notranslate cpp"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div><div class="line number34 index33 alt1">34</div><div class="line number35 index34 alt2">35</div><div class="line number36 index35 alt1">36</div><div class="line number37 index36 alt2">37</div><div class="line number38 index37 alt1">38</div><div class="line number39 index38 alt2">39</div><div class="line number40 index39 alt1">40</div><div class="line number41 index40 alt2">41</div><div class="line number42 index41 alt1">42</div><div class="line number43 index42 alt2">43</div><div class="line number44 index43 alt1">44</div><div class="line number45 index44 alt2">45</div><div class="line number46 index45 alt1">46</div><div class="line number47 index46 alt2">47</div><div class="line number48 index47 alt1">48</div><div class="line number49 index48 alt2">49</div><div class="line number50 index49 alt1">50</div><div class="line number51 index50 alt2">51</div><div class="line number52 index51 alt1">52</div><div class="line number53 index52 alt2">53</div><div class="line number54 index53 alt1">54</div><div class="line number55 index54 alt2">55</div><div class="line number56 index55 alt1">56</div><div class="line number57 index56 alt2">57</div><div class="line number58 index57 alt1">58</div><div class="line number59 index58 alt2">59</div><div class="line number60 index59 alt1">60</div><div class="line number61 index60 alt2">61</div><div class="line number62 index61 alt1">62</div><div class="line number63 index62 alt2">63</div><div class="line number64 index63 alt1">64</div><div class="line number65 index64 alt2">65</div><div class="line number66 index65 alt1">66</div><div class="line number67 index66 alt2">67</div><div class="line number68 index67 alt1">68</div><div class="line number69 index68 alt2">69</div><div class="line number70 index69 alt1">70</div><div class="line number71 index70 alt2">71</div><div class="line number72 index71 alt1">72</div><div class="line number73 index72 alt2">73</div><div class="line number74 index73 alt1">74</div><div class="line number75 index74 alt2">75</div><div class="line number76 index75 alt1">76</div><div class="line number77 index76 alt2">77</div><div class="line number78 index77 alt1">78</div><div class="line number79 index78 alt2">79</div><div class="line number80 index79 alt1">80</div><div class="line number81 index80 alt2">81</div><div class="line number82 index81 alt1">82</div><div class="line number83 index82 alt2">83</div><div class="line number84 index83 alt1">84</div><div class="line number85 index84 alt2">85</div><div class="line number86 index85 alt1">86</div><div class="line number87 index86 alt2">87</div><div class="line number88 index87 alt1">88</div><div class="line number89 index88 alt2">89</div><div class="line number90 index89 alt1">90</div><div class="line number91 index90 alt2">91</div><div class="line number92 index91 alt1">92</div><div class="line number93 index92 alt2">93</div><div class="line number94 index93 alt1">94</div><div class="line number95 index94 alt2">95</div><div class="line number96 index95 alt1">96</div><div class="line number97 index96 alt2">97</div><div class="line number98 index97 alt1">98</div><div class="line number99 index98 alt2">99</div><div class="line number100 index99 alt1">100</div><div class="line number101 index100 alt2">101</div><div class="line number102 index101 alt1">102</div><div class="line number103 index102 alt2">103</div><div class="line number104 index103 alt1">104</div><div class="line number105 index104 alt2">105</div><div class="line number106 index105 alt1">106</div><div class="line number107 index106 alt2">107</div><div class="line number108 index107 alt1">108</div><div class="line number109 index108 alt2">109</div><div class="line number110 index109 alt1">110</div><div class="line number111 index110 alt2">111</div><div class="line number112 index111 alt1">112</div><div class="line number113 index112 alt2">113</div><div class="line number114 index113 alt1">114</div><div class="line number115 index114 alt2">115</div><div class="line number116 index115 alt1">116</div><div class="line number117 index116 alt2">117</div><div class="line number118 index117 alt1">118</div><div class="line number119 index118 alt2">119</div><div class="line number120 index119 alt1">120</div><div class="line number121 index120 alt2">121</div><div class="line number122 index121 alt1">122</div><div class="line number123 index122 alt2">123</div><div class="line number124 index123 alt1">124</div><div class="line number125 index124 alt2">125</div><div class="line number126 index125 alt1">126</div><div class="line number127 index126 alt2">127</div><div class="line number128 index127 alt1">128</div><div class="line number129 index128 alt2">129</div><div class="line number130 index129 alt1">130</div><div class="line number131 index130 alt2">131</div><div class="line number132 index131 alt1">132</div><div class="line number133 index132 alt2">133</div><div class="line number134 index133 alt1">134</div><div class="line number135 index134 alt2">135</div><div class="line number136 index135 alt1">136</div><div class="line number137 index136 alt2">137</div><div class="line number138 index137 alt1">138</div><div class="line number139 index138 alt2">139</div><div class="line number140 index139 alt1">140</div><div class="line number141 index140 alt2">141</div><div class="line number142 index141 alt1">142</div><div class="line number143 index142 alt2">143</div><div class="line number144 index143 alt1">144</div><div class="line number145 index144 alt2">145</div><div class="line number146 index145 alt1">146</div><div class="line number147 index146 alt2">147</div><div class="line number148 index147 alt1">148</div><div class="line number149 index148 alt2">149</div><div class="line number150 index149 alt1">150</div><div class="line number151 index150 alt2">151</div><div class="line number152 index151 alt1">152</div><div class="line number153 index152 alt2">153</div><div class="line number154 index153 alt1">154</div><div class="line number155 index154 alt2">155</div><div class="line number156 index155 alt1">156</div><div class="line number157 index156 alt2">157</div><div class="line number158 index157 alt1">158</div><div class="line number159 index158 alt2">159</div><div class="line number160 index159 alt1">160</div><div class="line number161 index160 alt2">161</div><div class="line number162 index161 alt1">162</div><div class="line number163 index162 alt2">163</div><div class="line number164 index163 alt1">164</div><div class="line number165 index164 alt2">165</div><div class="line number166 index165 alt1">166</div><div class="line number167 index166 alt2">167</div><div class="line number168 index167 alt1">168</div><div class="line number169 index168 alt2">169</div><div class="line number170 index169 alt1">170</div><div class="line number171 index170 alt2">171</div><div class="line number172 index171 alt1">172</div><div class="line number173 index172 alt2">173</div><div class="line number174 index173 alt1">174</div><div class="line number175 index174 alt2">175</div><div class="line number176 index175 alt1">176</div><div class="line number177 index176 alt2">177</div><div class="line number178 index177 alt1">178</div><div class="line number179 index178 alt2">179</div><div class="line number180 index179 alt1">180</div><div class="line number181 index180 alt2">181</div><div class="line number182 index181 alt1">182</div><div class="line number183 index182 alt2">183</div><div class="line number184 index183 alt1">184</div><div class="line number185 index184 alt2">185</div><div class="line number186 index185 alt1">186</div><div class="line number187 index186 alt2">187</div><div class="line number188 index187 alt1">188</div><div class="line number189 index188 alt2">189</div><div class="line number190 index189 alt1">190</div><div class="line number191 index190 alt2">191</div><div class="line number192 index191 alt1">192</div><div class="line number193 index192 alt2">193</div><div class="line number194 index193 alt1">194</div><div class="line number195 index194 alt2">195</div><div class="line number196 index195 alt1">196</div><div class="line number197 index196 alt2">197</div><div class="line number198 index197 alt1">198</div><div class="line number199 index198 alt2">199</div><div class="line number200 index199 alt1">200</div><div class="line number201 index200 alt2">201</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp comments">// TrainNetwork.cpp : Defines the entry point for the console application.</code></div><div class="line number2 index1 alt1">&nbsp;</div><div class="line number3 index2 alt2"><code class="cpp preprocessor">#include "opencv2/opencv.hpp"&nbsp;&nbsp;&nbsp; // opencv general include file</code></div><div class="line number4 index3 alt1"><code class="cpp preprocessor">#include "opencv2/ml/ml.hpp"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // opencv machine learning include file</code></div><div class="line number5 index4 alt2"><code class="cpp preprocessor">#include &lt;stdio.h&gt;</code></div><div class="line number6 index5 alt1"><code class="cpp preprocessor">#include &lt;fstream&gt;</code></div><div class="line number7 index6 alt2"><code class="cpp keyword bold">using</code> <code class="cpp keyword bold">namespace</code> <code class="cpp plain">std;</code></div><div class="line number8 index7 alt1"><code class="cpp comments">/******************************************************************************/</code></div><div class="line number9 index8 alt2">&nbsp;</div><div class="line number10 index9 alt1"><code class="cpp preprocessor">#define TRAINING_SAMPLES 3050&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //Number of samples in training dataset</code></div><div class="line number11 index10 alt2"><code class="cpp preprocessor">#define ATTRIBUTES 256&nbsp; //Number of pixels per sample.16X16</code></div><div class="line number12 index11 alt1"><code class="cpp preprocessor">#define TEST_SAMPLES 1170&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //Number of samples in test dataset</code></div><div class="line number13 index12 alt2"><code class="cpp preprocessor">#define CLASSES 10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //Number of distinct labels.</code></div><div class="line number14 index13 alt1">&nbsp;</div><div class="line number15 index14 alt2"><code class="cpp comments">/********************************************************************************</code></div><div class="line number16 index15 alt1"><code class="cpp comments">This function will read the csv files(training and test dataset) and convert them</code></div><div class="line number17 index16 alt2"><code class="cpp comments">into two matrices. classes matrix have 10 columns, one column for each class label. If the label of nth row in data matrix</code></div><div class="line number18 index17 alt1"><code class="cpp comments">is, lets say 5 then the value of classes[n][5] = 1.</code></div><div class="line number19 index18 alt2"><code class="cpp comments">********************************************************************************/</code></div><div class="line number20 index19 alt1"><code class="cpp keyword bold">void</code> <code class="cpp plain">read_dataset(</code><code class="cpp color1 bold">char</code> <code class="cpp plain">*filename, cv::Mat &amp;data, cv::Mat &amp;classes,&nbsp; </code><code class="cpp color1 bold">int</code> <code class="cpp plain">total_samples)</code></div><div class="line number21 index20 alt2"><code class="cpp plain">{</code></div><div class="line number22 index21 alt1">&nbsp;</div><div class="line number23 index22 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">label; </code></div><div class="line number24 index23 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">float</code> <code class="cpp plain">pixelvalue;</code></div><div class="line number25 index24 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//open the file</code></div><div class="line number26 index25 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">FILE</code><code class="cpp plain">* inputfile = </code><code class="cpp functions bold">fopen</code><code class="cpp plain">( filename, </code><code class="cpp string">"r"</code> <code class="cpp plain">);</code></div><div class="line number27 index26 alt2">&nbsp;</div><div class="line number28 index27 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//read each row of the csv file</code></div><div class="line number29 index28 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code><code class="cpp plain">(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">row = 0; row &lt; total_samples; row++)</code></div><div class="line number30 index29 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number31 index30 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//for each attribute in the row</code></div><div class="line number32 index31 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code><code class="cpp plain">(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">col = 0; col &lt;=ATTRIBUTES; col++)</code></div><div class="line number33 index32 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number34 index33 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//if its the pixel value.</code></div><div class="line number35 index34 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code> <code class="cpp plain">(col &lt; ATTRIBUTES){</code></div><div class="line number36 index35 alt1">&nbsp;</div><div class="line number37 index36 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">fscanf</code><code class="cpp plain">(inputfile, </code><code class="cpp string">"%f,"</code><code class="cpp plain">, &amp;pixelvalue);</code></div><div class="line number38 index37 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">data.at&lt;</code><code class="cpp color1 bold">float</code><code class="cpp plain">&gt;(row,col) = pixelvalue;</code></div><div class="line number39 index38 alt2">&nbsp;</div><div class="line number40 index39 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code><code class="cpp comments">//if its the label </code></div><div class="line number41 index40 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">else</code> <code class="cpp keyword bold">if</code> <code class="cpp plain">(col == ATTRIBUTES){</code></div><div class="line number42 index41 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//make the value of label column in that row as 1.</code></div><div class="line number43 index42 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">fscanf</code><code class="cpp plain">(inputfile, </code><code class="cpp string">"%i"</code><code class="cpp plain">, &amp;label); </code></div><div class="line number44 index43 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">classes.at&lt;</code><code class="cpp color1 bold">float</code><code class="cpp plain">&gt;(row,label) = 1.0;</code></div><div class="line number45 index44 alt2">&nbsp;</div><div class="line number46 index45 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number47 index46 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number48 index47 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number49 index48 alt2">&nbsp;</div><div class="line number50 index49 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">fclose</code><code class="cpp plain">(inputfile);</code></div><div class="line number51 index50 alt2">&nbsp;</div><div class="line number52 index51 alt1"><code class="cpp plain">}</code></div><div class="line number53 index52 alt2">&nbsp;</div><div class="line number54 index53 alt1"><code class="cpp comments">/******************************************************************************/</code></div><div class="line number55 index54 alt2">&nbsp;</div><div class="line number56 index55 alt1"><code class="cpp color1 bold">int</code> <code class="cpp plain">main( </code><code class="cpp color1 bold">int</code> <code class="cpp plain">argc, </code><code class="cpp color1 bold">char</code><code class="cpp plain">** argv )</code></div><div class="line number57 index56 alt2"><code class="cpp plain">{</code></div><div class="line number58 index57 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//matrix to hold the training sample</code></div><div class="line number59 index58 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">cv::Mat training_set(TRAINING_SAMPLES,ATTRIBUTES,CV_32F);</code></div><div class="line number60 index59 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//matrix to hold the labels of each taining sample</code></div><div class="line number61 index60 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">cv::Mat training_set_classifications(TRAINING_SAMPLES, CLASSES, CV_32F);</code></div><div class="line number62 index61 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//matric to hold the test samples</code></div><div class="line number63 index62 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">cv::Mat test_set(TEST_SAMPLES,ATTRIBUTES,CV_32F);</code></div><div class="line number64 index63 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//matrix to hold the test labels.</code></div><div class="line number65 index64 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">cv::Mat test_set_classifications(TEST_SAMPLES,CLASSES,CV_32F);</code></div><div class="line number66 index65 alt1">&nbsp;</div><div class="line number67 index66 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//</code></div><div class="line number68 index67 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">cv::Mat classificationResult(1, CLASSES, CV_32F);</code></div><div class="line number69 index68 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//load the training and test data sets.</code></div><div class="line number70 index69 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">read_dataset(</code><code class="cpp string">"C:\\Users\\NITHIN\\Desktop\\OCR\\NN\\OCR\\training_dataset.txt"</code><code class="cpp plain">, training_set, training_set_classifications, TRAINING_SAMPLES);</code></div><div class="line number71 index70 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">read_dataset(</code><code class="cpp string">"C:\\Users\\NITHIN\\Desktop\\OCR\\NN\\OCR\\test_dataset.txt"</code><code class="cpp plain">, test_set, test_set_classifications, TEST_SAMPLES);</code></div><div class="line number72 index71 alt1">&nbsp;</div><div class="line number73 index72 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// define the structure for the neural network (MLP)</code></div><div class="line number74 index73 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// The neural network has 3 layers.</code></div><div class="line number75 index74 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// - one input node per attribute in a sample so 256 input nodes</code></div><div class="line number76 index75 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// - 16 hidden nodes</code></div><div class="line number77 index76 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// - 10 output node, one for each class.</code></div><div class="line number78 index77 alt1">&nbsp;</div><div class="line number79 index78 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">cv::Mat layers(3,1,CV_32S);</code></div><div class="line number80 index79 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">layers.at&lt;</code><code class="cpp color1 bold">int</code><code class="cpp plain">&gt;(0,0) = ATTRIBUTES;</code><code class="cpp comments">//input layer</code></div><div class="line number81 index80 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">layers.at&lt;</code><code class="cpp color1 bold">int</code><code class="cpp plain">&gt;(1,0)=16;</code><code class="cpp comments">//hidden layer</code></div><div class="line number82 index81 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">layers.at&lt;</code><code class="cpp color1 bold">int</code><code class="cpp plain">&gt;(2,0) =CLASSES;</code><code class="cpp comments">//output layer</code></div><div class="line number83 index82 alt2">&nbsp;</div><div class="line number84 index83 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//create the neural network.</code></div><div class="line number85 index84 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//for more details check <a href="http://docs.opencv.org/modules/ml/doc/neural_networks.html">http://docs.opencv.org/modules/ml/doc/neural_networks.html</a></code></div><div class="line number86 index85 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">CvANN_MLP nnetwork(layers, CvANN_MLP::SIGMOID_SYM,0.6,1);</code></div><div class="line number87 index86 alt2">&nbsp;</div><div class="line number88 index87 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">CvANN_MLP_TrainParams params(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code></div><div class="line number89 index88 alt2">&nbsp;</div><div class="line number90 index89 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// terminate the training after either 1000 </code></div><div class="line number91 index90 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// iterations or a very small change in the</code></div><div class="line number92 index91 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// network wieghts below the specified value</code></div><div class="line number93 index92 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">cvTermCriteria(CV_TERMCRIT_ITER+CV_TERMCRIT_EPS, 1000, 0.000001),</code></div><div class="line number94 index93 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// use backpropogation for training</code></div><div class="line number95 index94 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">CvANN_MLP_TrainParams::BACKPROP, </code></div><div class="line number96 index95 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// co-efficents for backpropogation training</code></div><div class="line number97 index96 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// recommended values taken from <a href="http://docs.opencv.org/modules/ml/doc/neural_networks.html">http://docs.opencv.org/modules/ml/doc/neural_networks.html</a>#cvann-mlp-trainparams</code></div><div class="line number98 index97 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">0.1, </code></div><div class="line number99 index98 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">0.1);</code></div><div class="line number100 index99 alt1">&nbsp;</div><div class="line number101 index100 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// train the neural network (using training data)</code></div><div class="line number102 index101 alt1">&nbsp;</div><div class="line number103 index102 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">printf</code><code class="cpp plain">( </code><code class="cpp string">"\nUsing training dataset\n"</code><code class="cpp plain">);</code></div><div class="line number104 index103 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">iterations = nnetwork.train(training_set, training_set_classifications,cv::Mat(),cv::Mat(),params);</code></div><div class="line number105 index104 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">printf</code><code class="cpp plain">( </code><code class="cpp string">"Training iterations: %i\n\n"</code><code class="cpp plain">, iterations); </code></div><div class="line number106 index105 alt1">&nbsp;</div><div class="line number107 index106 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// Save the model generated into an xml file.</code></div><div class="line number108 index107 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">CvFileStorage* storage = cvOpenFileStorage( </code><code class="cpp string">"C:\\Users\\NITHIN\\Desktop\\OCR\\NN\\OCR1\\param.xml"</code><code class="cpp plain">, 0, CV_STORAGE_WRITE );</code></div><div class="line number109 index108 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">nnetwork.write(storage,</code><code class="cpp string">"DigitOCR"</code><code class="cpp plain">);</code></div><div class="line number110 index109 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">cvReleaseFileStorage(&amp;storage);</code></div><div class="line number111 index110 alt2">&nbsp;</div><div class="line number112 index111 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// Test the generated model with the test samples.</code></div><div class="line number113 index112 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">cv::Mat test_sample;</code></div><div class="line number114 index113 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//count of correct classifications</code></div><div class="line number115 index114 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">correct_class = 0;</code></div><div class="line number116 index115 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//count of wrong classifications</code></div><div class="line number117 index116 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">wrong_class = 0;</code></div><div class="line number118 index117 alt1">&nbsp;</div><div class="line number119 index118 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//classification matrix gives the count of classes to which the samples were classified.</code></div><div class="line number120 index119 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">classification_matrix[CLASSES][CLASSES]={{}};</code></div><div class="line number121 index120 alt2">&nbsp;</div><div class="line number122 index121 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// for each sample in the test set.</code></div><div class="line number123 index122 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code> <code class="cpp plain">(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">tsample = 0; tsample &lt; TEST_SAMPLES; tsample++) {</code></div><div class="line number124 index123 alt1">&nbsp;</div><div class="line number125 index124 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// extract the sample</code></div><div class="line number126 index125 alt1">&nbsp;</div><div class="line number127 index126 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">test_sample = test_set.row(tsample);</code></div><div class="line number128 index127 alt1">&nbsp;</div><div class="line number129 index128 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//try to predict its class</code></div><div class="line number130 index129 alt1">&nbsp;</div><div class="line number131 index130 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">nnetwork.predict(test_sample, classificationResult);</code></div><div class="line number132 index131 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">/*The classification result matrix holds weightage&nbsp; of each class. </code></div><div class="line number133 index132 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">we take the class with the highest weightage as the resultant class */</code></div><div class="line number134 index133 alt1">&nbsp;</div><div class="line number135 index134 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// find the class with maximum weightage.</code></div><div class="line number136 index135 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">maxIndex = 0;</code></div><div class="line number137 index136 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">float</code> <code class="cpp plain">value=0.0f;</code></div><div class="line number138 index137 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">float</code> <code class="cpp plain">maxValue=classificationResult.at&lt;</code><code class="cpp color1 bold">float</code><code class="cpp plain">&gt;(0,0);</code></div><div class="line number139 index138 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code><code class="cpp plain">(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">index=1;index&lt;CLASSES;index++)</code></div><div class="line number140 index139 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{&nbsp;&nbsp; value = classificationResult.at&lt;</code><code class="cpp color1 bold">float</code><code class="cpp plain">&gt;(0,index);</code></div><div class="line number141 index140 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(value&gt;maxValue)</code></div><div class="line number142 index141 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{&nbsp;&nbsp; maxValue = value;</code></div><div class="line number143 index142 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">maxIndex=index;</code></div><div class="line number144 index143 alt1">&nbsp;</div><div class="line number145 index144 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number146 index145 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number147 index146 alt2">&nbsp;</div><div class="line number148 index147 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">printf</code><code class="cpp plain">(</code><code class="cpp string">"Testing Sample %i -&gt; class result (digit %d)\n"</code><code class="cpp plain">, tsample, maxIndex);</code></div><div class="line number149 index148 alt2">&nbsp;</div><div class="line number150 index149 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//Now compare the predicted class to the actural class. if the prediction is correct then\</code></div><div class="line number151 index150 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//test_set_classifications[tsample][ maxIndex] should be 1.</code></div><div class="line number152 index151 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//if the classification is wrong, note that.</code></div><div class="line number153 index152 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code> <code class="cpp plain">(test_set_classifications.at&lt;</code><code class="cpp color1 bold">float</code><code class="cpp plain">&gt;(tsample, maxIndex)!=1.0f)</code></div><div class="line number154 index153 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number155 index154 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// if they differ more than floating point error =&gt; wrong class</code></div><div class="line number156 index155 alt1">&nbsp;</div><div class="line number157 index156 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">wrong_class++;</code></div><div class="line number158 index157 alt1">&nbsp;</div><div class="line number159 index158 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//find the actual label 'class_index'</code></div><div class="line number160 index159 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code><code class="cpp plain">(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">class_index=0;class_index&lt;CLASSES;class_index++)</code></div><div class="line number161 index160 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number162 index161 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(test_set_classifications.at&lt;</code><code class="cpp color1 bold">float</code><code class="cpp plain">&gt;(tsample, class_index)==1.0f)</code></div><div class="line number163 index162 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number164 index163 alt1">&nbsp;</div><div class="line number165 index164 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">classification_matrix[class_index][maxIndex]++;</code><code class="cpp comments">// A class_index sample was wrongly classified as maxindex.</code></div><div class="line number166 index165 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">break</code><code class="cpp plain">;</code></div><div class="line number167 index166 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number168 index167 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number169 index168 alt2">&nbsp;</div><div class="line number170 index169 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">} </code><code class="cpp keyword bold">else</code> <code class="cpp plain">{</code></div><div class="line number171 index170 alt2">&nbsp;</div><div class="line number172 index171 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// otherwise correct</code></div><div class="line number173 index172 alt2">&nbsp;</div><div class="line number174 index173 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">correct_class++;</code></div><div class="line number175 index174 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">classification_matrix[maxIndex][maxIndex]++;</code></div><div class="line number176 index175 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number177 index176 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number178 index177 alt1">&nbsp;</div><div class="line number179 index178 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">printf</code><code class="cpp plain">( </code><code class="cpp string">"\nResults on the testing dataset\n"</code></div><div class="line number180 index179 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp string">"\tCorrect classification: %d (%g%%)\n"</code></div><div class="line number181 index180 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp string">"\tWrong classifications: %d (%g%%)\n"</code><code class="cpp plain">,&nbsp; </code></div><div class="line number182 index181 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">correct_class, (</code><code class="cpp color1 bold">double</code><code class="cpp plain">) correct_class*100/TEST_SAMPLES,</code></div><div class="line number183 index182 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">wrong_class, (</code><code class="cpp color1 bold">double</code><code class="cpp plain">) wrong_class*100/TEST_SAMPLES);</code></div><div class="line number184 index183 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">cout&lt;&lt;</code><code class="cpp string">"&nbsp;&nbsp; "</code><code class="cpp plain">;</code></div><div class="line number185 index184 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code> <code class="cpp plain">(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">i = 0; i &lt; CLASSES; i++)</code></div><div class="line number186 index185 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number187 index186 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">cout&lt;&lt; i&lt;&lt;</code><code class="cpp string">"\t"</code><code class="cpp plain">;</code></div><div class="line number188 index187 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number189 index188 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">cout&lt;&lt;</code><code class="cpp string">"\n"</code><code class="cpp plain">;</code></div><div class="line number190 index189 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code><code class="cpp plain">(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">row=0;row&lt;CLASSES;row++)</code></div><div class="line number191 index190 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{cout&lt;&lt;row&lt;&lt;</code><code class="cpp string">"&nbsp; "</code><code class="cpp plain">;</code></div><div class="line number192 index191 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code><code class="cpp plain">(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">col=0;col&lt;CLASSES;col++)</code></div><div class="line number193 index192 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number194 index193 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">cout&lt;&lt;classification_matrix[row][col]&lt;&lt;</code><code class="cpp string">"\t"</code><code class="cpp plain">;</code></div><div class="line number195 index194 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number196 index195 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">cout&lt;&lt;</code><code class="cpp string">"\n"</code><code class="cpp plain">;</code></div><div class="line number197 index196 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number198 index197 alt1">&nbsp;</div><div class="line number199 index198 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp plain">0;</code></div><div class="line number200 index199 alt1">&nbsp;</div><div class="line number201 index200 alt2"><code class="cpp plain">}</code></div></div></td></tr></tbody></table></div></div>
+<h2>Output</h2>
+<p><a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/wp-content/uploads/2013/09/param.zip" onclick="javascript:_gaq.push(['_trackEvent','download','/web/20150320014258/http://www.nithinrajs.in/wp-content/uploads/2013/09/param.zip']);">XML Model</a></p>
+<h2>Classification Example</h2>
+<p>The generated model for neural network can be used in your application in the following way.</p>
+<div><div id="highlighter_740613" class="syntaxhighlighter notranslate cpp"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div><div class="line number34 index33 alt1">34</div><div class="line number35 index34 alt2">35</div><div class="line number36 index35 alt1">36</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp preprocessor">#include "opencv2/opencv.hpp"&nbsp;&nbsp;&nbsp; // opencv general include file</code></div><div class="line number2 index1 alt1"><code class="cpp preprocessor">#include "opencv2/ml/ml.hpp"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // opencv machine learning include file</code></div><div class="line number3 index2 alt2"><code class="cpp preprocessor">#include &lt;stdio.h&gt;</code></div><div class="line number4 index3 alt1"><code class="cpp preprocessor">#include &lt;fstream&gt;</code></div><div class="line number5 index4 alt2"><code class="cpp preprocessor">#define ATTRIBUTES 256&nbsp; //Number of pixels per sample.16X16</code></div><div class="line number6 index5 alt1"><code class="cpp preprocessor">#define CLASSES 10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //Number of distinct labels.</code></div><div class="line number7 index6 alt2"><code class="cpp color1 bold">int</code> <code class="cpp plain">main( </code><code class="cpp color1 bold">int</code> <code class="cpp plain">argc, </code><code class="cpp color1 bold">char</code><code class="cpp plain">** argv )</code></div><div class="line number8 index7 alt1"><code class="cpp plain">{</code></div><div class="line number9 index8 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//read the model from the XML file and create the neural network.</code></div><div class="line number10 index9 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">CvANN_MLP nnetwork;</code></div><div class="line number11 index10 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">CvFileStorage* storage = cvOpenFileStorage( </code><code class="cpp string">"C:\\Users\\NITHIN\\Desktop\\OCR\\NN\\OCR1\\param.xml"</code><code class="cpp plain">, 0, CV_STORAGE_READ );</code></div><div class="line number12 index11 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">CvFileNode *n = cvGetFileNodeByName(storage,0,</code><code class="cpp string">"DigitOCR"</code><code class="cpp plain">);</code></div><div class="line number13 index12 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">nnetwork.read(storage,n);</code></div><div class="line number14 index13 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">cvReleaseFileStorage(&amp;storage);</code></div><div class="line number15 index14 alt2">&nbsp;</div><div class="line number16 index15 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//your code here</code></div><div class="line number17 index16 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// ...Generate cv::Mat data(1,ATTRIBUTES,CV_32S) which will contain the pixel</code></div><div class="line number18 index17 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// ... data for the digit to be recognized</code></div><div class="line number19 index18 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// ...</code></div><div class="line number20 index19 alt1">&nbsp;</div><div class="line number21 index20 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">maxIndex = 0;</code></div><div class="line number22 index21 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">cv::Mat classOut(1,CLASSES,CV_32F);</code></div><div class="line number23 index22 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//prediction</code></div><div class="line number24 index23 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">nnetwork.predict(data, classOut);</code></div><div class="line number25 index24 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">float</code> <code class="cpp plain">value;</code></div><div class="line number26 index25 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">float</code> <code class="cpp plain">maxValue=classOut.at&lt;</code><code class="cpp color1 bold">float</code><code class="cpp plain">&gt;(0,0);</code></div><div class="line number27 index26 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code><code class="cpp plain">(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">index=1;index&lt;CLASSES;index++)</code></div><div class="line number28 index27 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{&nbsp;&nbsp; value = classOut.at&lt;</code><code class="cpp color1 bold">float</code><code class="cpp plain">&gt;(0,index);</code></div><div class="line number29 index28 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(value&gt;maxValue)</code></div><div class="line number30 index29 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{&nbsp;&nbsp; maxValue = value;</code></div><div class="line number31 index30 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">maxIndex=index;</code></div><div class="line number32 index31 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number33 index32 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number34 index33 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//maxIndex is the predicted class.</code></div><div class="line number35 index34 alt2">&nbsp;</div><div class="line number36 index35 alt1"><code class="cpp plain">}</code></div></div></td></tr></tbody></table></div></div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>I used this in the sudoku application I wrote. Here are few screen shots.<br>
+<a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/wp-content/uploads/2013/09/opencv_Artificial_neural_network_optical_character_recognition_machine_learning_tutorial_87_nithinrajs_in.jpg"><img class="alignnone size-full wp-image-160" alt="opencv_Artificial_neural_network_optical_character_recognition_machine_learning_tutorial_87_nithinrajs_in" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/opencv_Artificial_neural_network_optical_character_recog_002.jpg" height="673" width="963"></a></p>
+<p><a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/wp-content/uploads/2013/09/opencv_Artificial_neural_network_optical_character_recognition_machine_learning_tutorial_86_nithinrajs_in.jpg"><img class="alignnone size-full wp-image-161" alt="opencv_Artificial_neural_network_optical_character_recognition_machine_learning_tutorial_86_nithinrajs_in" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/opencv_Artificial_neural_network_optical_character_recogniti.jpg" height="673" width="994"></a></p>
+<!-- Simple Share Buttons Adder (4.4) simplesharebuttons.com --><div class="ssba"><div style="text-align:left"><a href="https://web.archive.org/web/20150320014258/http://www.simplesharebuttons.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','/web/20150320014258/http://www.simplesharebuttons.com']);" target="_blank">Don't be shellfish...</a><a class="ssba_facebook_share" href="https://web.archive.org/web/20150320014258/http://www.facebook.com/sharer.php?u=http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','/web/20150320014258/http://www.facebook.com']);" target="_blank"><img src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/facebook.png" title="Facebook" class="ssba" alt="Share on Facebook"></a><a class="ssba_google_share" href="https://web.archive.org/web/20150320014258/https://plus.google.com/share?url=http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','/web/20150320014258/http://plus.google.com']);" target="_blank"><img src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/google.png" title="Google+" class="ssba" alt="Share on Google+"></a><a class="ssba_twitter_share" href="https://web.archive.org/web/20150320014258/http://twitter.com/share?url=http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing/&amp;text=OCR+using+Artificial+Neural+Network+%28OpenCV%29+%E2%80%93+Part+3%28final%29+%E2%80%93+Training+and+Classification+" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','/web/20150320014258/http://twitter.com']);" target="_blank"><img src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/twitter.png" title="Twitter" class="ssba" alt="Tweet about this on Twitter"></a><a class="ssba_email_share" href="mailto:?Subject=OCR%20using%20Artificial%20Neural%20Network%20%28OpenCV%29%20%E2%80%93%20Part%203%28final%29%20%E2%80%93%20Training%20and%20Classification&amp;Body=%20http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing/"><img src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/email.png" title="Email" class="ssba" alt="Email this to someone"></a><a class="ssba_reddit_share" href="https://web.archive.org/web/20150320014258/http://reddit.com/submit?url=http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing/&amp;title=OCR%20using%20Artificial%20Neural%20Network%20%28OpenCV%29%20%E2%80%93%20Part%203%28final%29%20%E2%80%93%20Training%20and%20Classification" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','/web/20150320014258/http://reddit.com']);" target="_blank"><img src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/reddit.png" title="Reddit" class="ssba" alt="Share on Reddit"></a><a class="ssba_diggit_share ssba_share_link" href="https://web.archive.org/web/20150320014258/http://www.digg.com/submit?url=http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','/web/20150320014258/http://www.digg.com']);" target="_blank"><img src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/diggit.png" title="Digg" class="ssba" alt="Digg this"></a><a class="ssba_linkedin_share ssba_share_link" href="https://web.archive.org/web/20150320014258/http://www.linkedin.com/shareArticle?mini=true&amp;url=http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','/web/20150320014258/http://www.linkedin.com']);" target="_blank"><img src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/linkedin.png" title="Linkedin" class="ssba" alt="Share on LinkedIn"></a><a class="ssba_stumbleupon_share ssba_share_link" href="https://web.archive.org/web/20150320014258/http://www.stumbleupon.com/submit?url=http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing/&amp;title=OCR%20using%20Artificial%20Neural%20Network%20%28OpenCV%29%20%E2%80%93%20Part%203%28final%29%20%E2%80%93%20Training%20and%20Classification" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','/web/20150320014258/http://www.stumbleupon.com']);" target="_blank"><img src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/stumbleupon.png" title="StumbleUpon" class="ssba" alt="Share on StumbleUpon"></a></div></div>									</div>
+				<!-- //Post Content -->
+												
+				
+<span class="post_type_label "></span>
+<span class="post_date"><time datetime="2013-09-28T17:20:57">September 28, 2013</time></span>
+	<!-- Post Meta -->
+		<div class="post_meta default">
+		<span class="post_category"><a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/category/image-processing/" title="View all posts in Image Processing" rel="category tag">Image Processing</a> <a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/category/opencv/" title="View all posts in OpenCV" rel="category tag">OpenCV</a></span>		<span class="post_comment"><i class="icon-comments"></i><a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing/#comments" class="comments-link" title="Comment on OCR using Artificial Neural Network (OpenCV) – Part 3(final) – Training and Classification">13 comments</a></span>
+		<span class="post_author"><i class="icon-user"></i><a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/author/nithinrajs2/" title="Posts by Nithin Raj S" rel="author">Nithin Raj S</a></span>
+		<div class="clear"></div>
+	</div>
+		<!--// Post Meta -->
+
+			</article>
+
+			<div class="single-post-nav">
+    <a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/ocr-using-artificial-neural-network-opencv-part-2-preprocessing/" rel="prev">← OCR using Artificial Neural Network (OpenCV) – Part 2 – Preprocessing</a>    </div>
+<!-- Posts navigation -->
+
+	<div id="comments" class="comments-area">
+
+	
+			<h2 class="comments-title">
+			13 thoughts on “<span>OCR using Artificial Neural Network (OpenCV) – Part 3(final) – Training and Classification</span>”		</h2>
+
+		
+		<ol class="comment-list">
+			 
+   <li class="comment even thread-even depth-1" id="li-comment-135">
+     	<div id="comment-135" class="comment-body clearfix">
+      		<div class="clearfix">
+      			<div class="comment-author vcard">
+  	         		<img alt="" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/ac3d793b0b5e196dc1830ec1e51d8223.jpeg" class="avatar avatar-65 photo" height="65" width="65">  	  				<span class="author fn">dillards</span>  	      		</div>
+  		      		      	
+  		     	<div class="extra-wrap">
+  		     		<p>I’d incessantly want to be update on new articles on this website, bookmarked!…</p>
+	     	
+  		     	</div>
+  		    </div>
+	     	<div class="clearfix comment-footer">
+			  	<div class="reply">
+			    				   	</div>
+		   		<div class="comment-meta commentmetadata">October 19, 2013</div>
+		 	</div>
+    	</div>
+</li><!-- #comment-## -->
+ 
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-147">
+     	<div id="comment-147" class="comment-body clearfix">
+      		<div class="clearfix">
+      			<div class="comment-author vcard">
+  	         		<img alt="" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/3d6b21b74690c91659572bafa16850cd.jpeg" class="avatar avatar-65 photo" height="65" width="65">  	  				<span class="author fn"><a href="https://web.archive.org/web/20150320014258/http://-/" onclick="javascript:_gaq.push(['_trackEvent','outbound-commentauthor','']);" rel="external nofollow" class="url">J</a></span>  	      		</div>
+  		      		      	
+  		     	<div class="extra-wrap">
+  		     		<p>Hey how do you read the data from the last part?<br>
+Do you have to convert the test “data” image to the characteristics of the training data image?<br>
+I tried doing that as well, didn’t work.<br>
+Please give an example of how to “predict the data against the neural network”..</p>
+	     	
+  		     	</div>
+  		    </div>
+	     	<div class="clearfix comment-footer">
+			  	<div class="reply">
+			    				   	</div>
+		   		<div class="comment-meta commentmetadata">December 5, 2013</div>
+		 	</div>
+    	</div>
+<ul class="children">
+ 
+   <li class="comment byuser comment-author-nithinrajs2 bypostauthor even depth-2" id="li-comment-176">
+     	<div id="comment-176" class="comment-body clearfix">
+      		<div class="clearfix">
+      			<div class="comment-author vcard">
+  	         		<img alt="" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/f0c8c8b3ee8082760f1056d96f72ce31.jpeg" class="avatar avatar-65 photo" height="65" width="65">  	  				<span class="author fn">Nithin Raj S</span>  	      		</div>
+  		      		      	
+  		     	<div class="extra-wrap">
+  		     		<p>Hi,<br>
+Sorry for the late reply. I didn’t notice your comment in my queue ( I get a lot of spam comments <img src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/icon_sad.gif" alt=":(" class="wp-smiley">  ).<br>
+The reason why I have not included the code to generate [cv::Mat 
+data(1,ATTRIBUTES,CV_32S)] is that the code will depend on the kind of 
+image you want to detect. I wanted the neural network to detect the 
+digits in a sudoku grid. I wrote code to slice the  sudoku image and 
+extract each cell with a digit. Then I converted each cell image to a 
+string of 1′s and 0′s and stored it in [cv::Mat 
+data(1,ATTRIBUTES,CV_32S)] one at a time and called the method 
+[nnetwork.predict(data, classOut)] .<br>
+For the neural network to detect your image you have to convert the 
+pixel values to a string of  1′s and 0′s, as mentioned in part 2 of this
+ series, and store it in [cv::Mat data(1,ATTRIBUTES,CV_32S)]. Then call 
+the function [nnetwork.predict(data, classOut)]. classOut will hold the 
+probabilities predicted by the neural network for each label. I simply 
+consider the index position with highest probability as predicted label.</p>
+<p>#include “opencv2/opencv.hpp”    // opencv general include file<br>
+#include “opencv2/ml/ml.hpp”          // opencv machine learning include file<br>
+#include <stdio .h=""><br>
+#include <fstream><br>
+#define ATTRIBUTES 256  //Number of pixels per sample.16X16<br>
+#define CLASSES 10                  //Number of distinct labels.<br>
+int main( int argc, char** argv )<br>
+{<br>
+    //read the model from the XML file and create the neural network.<br>
+    CvANN_MLP nnetwork;<br>
+    CvFileStorage* storage = cvOpenFileStorage( “C:\\Users\\NITHIN\\Desktop\\OCR\\NN\\OCR1\\param.xml”, 0, CV_STORAGE_READ );<br>
+    CvFileNode *n = cvGetFileNodeByName(storage,0,”DigitOCR”);<br>
+    nnetwork.read(storage,n);<br>
+    cvReleaseFileStorage(&amp;storage);</fstream></stdio></p>
+<p>  <b>  //put your code here<br>
+    // …Generate cv::Mat data(1,ATTRIBUTES,CV_32S) which will contain the pixel data for the digit to be recognized<br>
+    // …</b></p>
+<p>    int maxIndex = 0;<br>
+    cv::Mat classOut(1,CLASSES,CV_32F);<br>
+    //prediction<br>
+    nnetwork.predict(data, classOut);<br>
+    float value;<br>
+    float maxValue=classOut.at<float>(0,0);<br>
+    for(int index=1;index<classes ;index++)=""><br>
+    {   value = classOut.at<float>(0,index);<br>
+            if(value&gt;maxValue)<br>
+            {   maxValue = value;<br>
+                maxIndex=index;<br>
+            }<br>
+    }<br>
+    //maxIndex is the predicted class.</float></classes></float></p>
+<p>}</p>
+	     	
+  		     	</div>
+  		    </div>
+	     	<div class="clearfix comment-footer">
+			  	<div class="reply">
+			    				   	</div>
+		   		<div class="comment-meta commentmetadata">January 10, 2014</div>
+		 	</div>
+    	</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+ 
+   <li class="comment odd alt thread-even depth-1" id="li-comment-175">
+     	<div id="comment-175" class="comment-body clearfix">
+      		<div class="clearfix">
+      			<div class="comment-author vcard">
+  	         		<img alt="" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/97b691cbe6a457fe1de58da61d411e0a.jpeg" class="avatar avatar-65 photo" height="65" width="65">  	  				<span class="author fn">Steven</span>  	      		</div>
+  		      		      	
+  		     	<div class="extra-wrap">
+  		     		<p>I am doing a project on symbol detection/classification. I
+ am planning to use the technique described in your blog. I successfully
+ got your programs working. Hopefully I will be able to do the same in 
+my project :).</p>
+	     	
+  		     	</div>
+  		    </div>
+	     	<div class="clearfix comment-footer">
+			  	<div class="reply">
+			    				   	</div>
+		   		<div class="comment-meta commentmetadata">January 10, 2014</div>
+		 	</div>
+    	</div>
+<ul class="children">
+ 
+   <li class="comment byuser comment-author-nithinrajs2 bypostauthor even depth-2" id="li-comment-177">
+     	<div id="comment-177" class="comment-body clearfix">
+      		<div class="clearfix">
+      			<div class="comment-author vcard">
+  	         		<img alt="" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/f0c8c8b3ee8082760f1056d96f72ce31.jpeg" class="avatar avatar-65 photo" height="65" width="65">  	  				<span class="author fn">Nithin Raj S</span>  	      		</div>
+  		      		      	
+  		     	<div class="extra-wrap">
+  		     		<p>Thanks a Lot <img src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/icon_smile.gif" alt=":)" class="wp-smiley">  and Best of luck with your project.</p>
+	     	
+  		     	</div>
+  		    </div>
+	     	<div class="clearfix comment-footer">
+			  	<div class="reply">
+			    				   	</div>
+		   		<div class="comment-meta commentmetadata">January 10, 2014</div>
+		 	</div>
+    	</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+ 
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-191">
+     	<div id="comment-191" class="comment-body clearfix">
+      		<div class="clearfix">
+      			<div class="comment-author vcard">
+  	         		<img alt="" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/f0b2d130934d144daf14389c505f1b51.jpeg" class="avatar avatar-65 photo" height="65" width="65">  	  				<span class="author fn">oskar</span>  	      		</div>
+  		      		      	
+  		     	<div class="extra-wrap">
+  		     		<p>can I have the source code , please. I successfully got 
+the .xml for my project, but i don’t know how to implementing in my 
+project, please</p>
+	     	
+  		     	</div>
+  		    </div>
+	     	<div class="clearfix comment-footer">
+			  	<div class="reply">
+			    				   	</div>
+		   		<div class="comment-meta commentmetadata">February 13, 2014</div>
+		 	</div>
+    	</div>
+<ul class="children">
+ 
+   <li class="comment byuser comment-author-nithinrajs2 bypostauthor even depth-2" id="li-comment-198">
+     	<div id="comment-198" class="comment-body clearfix">
+      		<div class="clearfix">
+      			<div class="comment-author vcard">
+  	         		<img alt="" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/f0c8c8b3ee8082760f1056d96f72ce31.jpeg" class="avatar avatar-65 photo" height="65" width="65">  	  				<span class="author fn">Nithin Raj S</span>  	      		</div>
+  		      		      	
+  		     	<div class="extra-wrap">
+  		     		<p>I think you are on the last step. You have generated the 
+model but confused on how to use it in your own application. Am I right?<br>
+I have actually given the outline on how too use it in the post itself. You have to plugin your own preprocessing logic.<br>
+#include “opencv2/opencv.hpp”    // opencv general include file<br>
+#include “opencv2/ml/ml.hpp”          // opencv machine learning include file<br>
+#include <stdio .h=""><br>
+#include <fstream><br>
+#define ATTRIBUTES 256  //Number of pixels per sample.16X16<br>
+#define CLASSES 10                  //Number of distinct labels.<br>
+int main( int argc, char** argv )<br>
+{<br>
+    //read the model from the XML file and create the neural network.<br>
+    CvANN_MLP nnetwork;<br>
+    CvFileStorage* storage = cvOpenFileStorage( “C:\\Users\\NITHIN\\Desktop\\OCR\\NN\\OCR1\\param.xml”, 0, CV_STORAGE_READ );<br>
+    CvFileNode *n = cvGetFileNodeByName(storage,0,”DigitOCR”);<br>
+    nnetwork.read(storage,n);<br>
+    cvReleaseFileStorage(&amp;storage);</fstream></stdio></p>
+<p>    //your code here<br>
+    // …Generate cv::Mat data(1,ATTRIBUTES,CV_32S) which will contain the pixel<br>
+    // … data for the digit to be recognized<br>
+    // …</p>
+<p>    int maxIndex = 0;<br>
+    cv::Mat classOut(1,CLASSES,CV_32F);<br>
+    //prediction<br>
+    nnetwork.predict(data, classOut);<br>
+    float value;<br>
+    float maxValue=classOut.at<float>(0,0);<br>
+    for(int index=1;index<classes ;index++)=""><br>
+    {   value = classOut.at<float>(0,index);<br>
+            if(value&gt;maxValue)<br>
+            {   maxValue = value;<br>
+                maxIndex=index;<br>
+            }<br>
+    }<br>
+    //maxIndex is the predicted class.</float></classes></float></p>
+<p>}<br>
+</p>
+	     	
+  		     	</div>
+  		    </div>
+	     	<div class="clearfix comment-footer">
+			  	<div class="reply">
+			    				   	</div>
+		   		<div class="comment-meta commentmetadata">March 1, 2014</div>
+		 	</div>
+    	</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+ 
+   <li class="comment odd alt thread-even depth-1" id="li-comment-196">
+     	<div id="comment-196" class="comment-body clearfix">
+      		<div class="clearfix">
+      			<div class="comment-author vcard">
+  	         		<img alt="" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/b9db8a15dae7e33f996ac23d5c3c9d2f.jpeg" class="avatar avatar-65 photo" height="65" width="65">  	  				<span class="author fn">Nikita</span>  	      		</div>
+  		      		      	
+  		     	<div class="extra-wrap">
+  		     		<p>I translated your code into JavaCV and somehow value of iterations is 1. Maybe you have any ideas why this is happening?</p>
+	     	
+  		     	</div>
+  		    </div>
+	     	<div class="clearfix comment-footer">
+			  	<div class="reply">
+			    				   	</div>
+		   		<div class="comment-meta commentmetadata">February 25, 2014</div>
+		 	</div>
+    	</div>
+<ul class="children">
+ 
+   <li class="comment byuser comment-author-nithinrajs2 bypostauthor even depth-2" id="li-comment-199">
+     	<div id="comment-199" class="comment-body clearfix">
+      		<div class="clearfix">
+      			<div class="comment-author vcard">
+  	         		<img alt="" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/f0c8c8b3ee8082760f1056d96f72ce31.jpeg" class="avatar avatar-65 photo" height="65" width="65">  	  				<span class="author fn">Nithin Raj S</span>  	      		</div>
+  		      		      	
+  		     	<div class="extra-wrap">
+  		     		<p>Hi Nikita,<br>
+Without looking at the source code it is hard for me to comment on why 
+that is happening. It could be a  minor mistake. if you want you can 
+mail me your source code and I will check it out.</p>
+	     	
+  		     	</div>
+  		    </div>
+	     	<div class="clearfix comment-footer">
+			  	<div class="reply">
+			    				   	</div>
+		   		<div class="comment-meta commentmetadata">March 1, 2014</div>
+		 	</div>
+    	</div>
+<ul class="children">
+ 
+   <li class="comment odd alt depth-3" id="li-comment-203">
+     	<div id="comment-203" class="comment-body clearfix">
+      		<div class="clearfix">
+      			<div class="comment-author vcard">
+  	         		<img alt="" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/b9db8a15dae7e33f996ac23d5c3c9d2f.jpeg" class="avatar avatar-65 photo" height="65" width="65">  	  				<span class="author fn">Nikita</span>  	      		</div>
+  		      		      	
+  		     	<div class="extra-wrap">
+  		     		<p>Hi!<br>
+here is my java-code:<br>
+<a href="https://web.archive.org/web/20150320014258/https://drive.google.com/file/d/0B3SZHqMJKRjeQjRoNTlTQWFwQTg/edit?usp=sharing" onclick="javascript:_gaq.push(['_trackEvent','outbound-comment','/web/20150320014258/http://drive.google.com']);" rel="nofollow">https://drive.google.com/file/d/0B3SZHqMJKRjeQjRoNTlTQWFwQTg/edit?usp=sharing</a></p>
+	     	
+  		     	</div>
+  		    </div>
+	     	<div class="clearfix comment-footer">
+			  	<div class="reply">
+			    				   	</div>
+		   		<div class="comment-meta commentmetadata">March 7, 2014</div>
+		 	</div>
+    	</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+ 
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-202">
+     	<div id="comment-202" class="comment-body clearfix">
+      		<div class="clearfix">
+      			<div class="comment-author vcard">
+  	         		<img alt="" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/9806b98faa3b39d3798c6431397fcd18.jpeg" class="avatar avatar-65 photo" height="65" width="65">  	  				<span class="author fn">Mohmmed</span>  	      		</div>
+  		      		      	
+  		     	<div class="extra-wrap">
+  		     		<p>Hi Nikita,</p>
+<p>Can you feed us a same project but by C#… </p>
+<p>Regards</p>
+	     	
+  		     	</div>
+  		    </div>
+	     	<div class="clearfix comment-footer">
+			  	<div class="reply">
+			    				   	</div>
+		   		<div class="comment-meta commentmetadata">March 4, 2014</div>
+		 	</div>
+    	</div>
+</li><!-- #comment-## -->
+ 
+   <li class="comment odd alt thread-even depth-1" id="li-comment-210">
+     	<div id="comment-210" class="comment-body clearfix">
+      		<div class="clearfix">
+      			<div class="comment-author vcard">
+  	         		<img alt="" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/f74bb2b8e3f0ee4600ed63b3bd50164c.jpeg" class="avatar avatar-65 photo" height="65" width="65">  	  				<span class="author fn">Victor</span>  	      		</div>
+  		      		      	
+  		     	<div class="extra-wrap">
+  		     		<p>Hi I have a question . In which part of code you draw a number that you recognized next to number that is in a image</p>
+	     	
+  		     	</div>
+  		    </div>
+	     	<div class="clearfix comment-footer">
+			  	<div class="reply">
+			    				   	</div>
+		   		<div class="comment-meta commentmetadata">March 23, 2014</div>
+		 	</div>
+    	</div>
+<ul class="children">
+ 
+   <li class="comment byuser comment-author-nithinrajs2 bypostauthor even depth-2" id="li-comment-215">
+     	<div id="comment-215" class="comment-body clearfix">
+      		<div class="clearfix">
+      			<div class="comment-author vcard">
+  	         		<img alt="" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/f0c8c8b3ee8082760f1056d96f72ce31.jpeg" class="avatar avatar-65 photo" height="65" width="65">  	  				<span class="author fn">Nithin Raj S</span>  	      		</div>
+  		      		      	
+  		     	<div class="extra-wrap">
+  		     		<p>I guess you are asking about the sudoku. That is a 
+different program. I used this OCR code in that program to recognize the
+ digits.</p>
+	     	
+  		     	</div>
+  		    </div>
+	     	<div class="clearfix comment-footer">
+			  	<div class="reply">
+			    				   	</div>
+		   		<div class="comment-meta commentmetadata">March 29, 2014</div>
+		 	</div>
+    	</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+		
+	
+			<p class="no-comments">Comments are closed.</p>
+	
+			
+</div><!-- #comments -->
+
+		</div><!-- #content -->
+	</div><!-- #primary -->
+
+	<div id="secondary" class="widget-area span4" role="complementary">
+			<div class="author_bio_sidebar">
+		<div class="social_box">
+	<a href="#"><i class="icon-twitter"></i></a>
+<a href="#"><i class="icon-facebook"></i></a>
+<a href="#"><i class="icon-google-plus"></i></a>
+<a href="#"><i class="icon-linkedin"></i></a>
+<a href="#"><i class="icon-rss"></i></a>
+		</div>
+				<div class="content_box">
+		<h2>Welcome to my site</h2>
+<figure class="author_bio_img"><img src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/AAEAAQAAAAAAAAGhAAAAJGUyYWUzNzZmLTFlNTYtNGY1Ny04Yjg0LWE3MzZi.jpg" alt="Welcome to my site"></figure>
+<div class="author_bio_message">Hello, and welcome to my site! I hope you like the place and decide to stay.
+
+<div style="font-size:9px;color:#bbbac0">
+<div>Disclaimer</div>
+All content provided on this blog is for informational purposes only. 
+The owner of this blog makes no representations as to the accuracy or 
+completeness of any information on this site or found by following any 
+link on this site.
+
+The owner of will not be liable for any errors or omissions in this 
+information nor for the availability of this information. The owner will
+ not be liable for any losses, injuries, or damages from the display or 
+use of this information.
+This terms and conditions is subject to change at anytime with or 
+without notice</div></div>
+		</div>
+			</div>
+			<aside id="search-2" class="widget widget_search">	<form method="get" id="searchform" class="searchform" action="/web/20150320014258/http://www.nithinrajs.in/" role="search">
+		<label for="s" class="screen-reader-text">Search</label>
+		<input class="field" name="s" id="s" placeholder="Search …" type="search">
+		<input class="submit" id="searchsubmit" value="Search" type="submit">
+	</form>
+</aside>		<aside id="recent-posts-2" class="widget widget_recent_entries">		<h3 class="widget-title">Recent Posts</h3>		<ul>
+					<li>
+				<a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing/">OCR using Artificial Neural Network (OpenCV) – Part 3(final) – Training and Classification</a>
+						</li>
+					<li>
+				<a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/ocr-using-artificial-neural-network-opencv-part-2-preprocessing/">OCR using Artificial Neural Network (OpenCV) – Part 2 – Preprocessing</a>
+						</li>
+					<li>
+				<a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/ocr-using-artificial-neural-network-opencv-part-1/">OCR using Artificial Neural Network (OpenCV) – Part 1</a>
+						</li>
+					<li>
+				<a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/opencv-2-4-4-and-visual-studio-2010-express-edition/">OpenCV 2.4.4 and Visual Studio 2010 Express Edition</a>
+						</li>
+					<li>
+				<a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/adding-form-elements-to-webgrid-in-mvc4/">Adding form elements to webgrid in MVC4</a>
+						</li>
+				</ul>
+		</aside><aside id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments">Nithin Raj S on <a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing/#comment-215">OCR using Artificial Neural Network (OpenCV) – Part 3(final) – Training and Classification</a></li><li class="recentcomments">Victor on <a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing/#comment-210">OCR using Artificial Neural Network (OpenCV) – Part 3(final) – Training and Classification</a></li><li class="recentcomments">Nikita on <a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing/#comment-203">OCR using Artificial Neural Network (OpenCV) – Part 3(final) – Training and Classification</a></li><li class="recentcomments">Mohmmed on <a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/ocr-artificial-neural-network-opencv-part-3final-preprocessing/#comment-202">OCR using Artificial Neural Network (OpenCV) – Part 3(final) – Training and Classification</a></li><li class="recentcomments">Mohmmed on <a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/ocr-using-artificial-neural-network-opencv-part-1/#comment-201">OCR using Artificial Neural Network (OpenCV) – Part 1</a></li></ul></aside><aside id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>		<ul>
+	<li class="cat-item cat-item-5"><a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/category/net/" title="View all posts filed under .Net">.Net</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/category/image-processing/" title="View all posts filed under Image Processing">Image Processing</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/category/mvc4/" title="View all posts filed under MVC4">MVC4</a>
+</li>
+	<li class="cat-item cat-item-2"><a href="https://web.archive.org/web/20150320014258/http://www.nithinrajs.in/category/opencv/" title="View all posts filed under OpenCV">OpenCV</a>
+</li>
+		</ul>
+</aside>	</div><!-- #secondary -->
+			</div>
+		</div>
+	</div><!-- #main -->
+
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="container">
+			<div class="site-info">
+				<div class="footer-text">
+					Copyright © 2013 Nithin Raj - Powered by Wordpress -Theme <a href="https://web.archive.org/web/20150320014258/http://profiles.wordpress.org/duena_studio/">Duena</a>				</div>
+								<div class="clear"></div>
+				<div style="display: block;" id="toTop"><i class="icon-chevron-up"></i></div>
+			</div>
+		</div>
+	</footer><!-- #colophon -->
+</div><!-- .page-wrapper -->
+
+
+<!-- WP SyntaxHighlighter Ver.1.7.3 Begin -->
+<script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/shCore.js"></script>
+<script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/shAutoloader.js"></script>
+<script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/shBrushXml.js"></script>
+<script type="text/javascript">//<![CDATA[
+	SyntaxHighlighter.autoloader(
+	"applescript	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushAppleScript.js?ver=3.0"
+	,"as3 actionscript3	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushAS3.js?ver=3.0"
+	,"bash shell	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushBash.js?ver=3.0"
+	,"cf coldfusion	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushColdFusion.js?ver=3.0"
+	,"cpp c	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCpp.js?ver=3.0"
+	,"c# c-sharp csharp	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCSharp.js?ver=3.0"
+	,"css	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCss.js?ver=3.0"
+	,"delphi pas pascal	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushDelphi.js?ver=3.0"
+	,"diff patch	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushDiff.js?ver=3.0"
+	,"erl erlang	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushErlang.js?ver=3.0"
+	,"groovy	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushGroovy.js?ver=3.0"
+	,"java	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJava.js?ver=3.0"
+	,"jfx javafx	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJavaFX.js?ver=3.0"
+	,"js jscript javascript	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJScript.js?ver=3.0"
+	,"perl pl	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPerl.js?ver=3.0"
+	,"php	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPhp.js?ver=3.0"
+	,"plain text	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPlain.js?ver=3.0"
+	,"ps powershell	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPowerShell.js?ver=3.0"
+	,"py python	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPython.js?ver=3.0"
+	,"rails ror ruby rb	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushRuby.js?ver=3.0"
+	,"sass scss	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushSass.js?ver=3.0"
+	,"scala	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushScala.js?ver=3.0"
+	,"sql	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushSql.js?ver=3.0"
+	,"vb vbnet	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushVb.js?ver=3.0"
+	,"xml xhtml xslt html	/web/20150320014258/http://www.nithinrajs.in/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushXml.js?ver=3.0"
+	);
+	SyntaxHighlighter.defaults['auto-links'] = true;
+	SyntaxHighlighter.defaults['quick-code'] = true;
+	SyntaxHighlighter.defaults['title'] = '';
+	SyntaxHighlighter.defaults['class-name'] = 'notranslate';
+	SyntaxHighlighter.defaults['collapse'] = false;
+	SyntaxHighlighter.defaults['first-line'] = 1;
+	SyntaxHighlighter.defaults['gutter'] = true;
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['smart-tabs'] = true;
+	SyntaxHighlighter.defaults['tab-size'] = 4;
+	SyntaxHighlighter.defaults['toolbar'] = true;
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = "Can't find brush for: ";
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = "Brush wasn't configured for html-script option: ";
+	SyntaxHighlighter.all();
+	
+//]]></script>
+<!-- WP SyntaxHighlighter Ver.1.7.3 End -->
+<div id="su-footer-links" style="text-align: center;"></div><script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/navigation.js"></script>
+<script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/skip-link-focus-fix.js"></script>
+<script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/superfish.js"></script>
+<script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/jquery.js"></script>
+<script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/sfmenu-touch.js"></script>
+<script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/jquery_003.js"></script>
+<script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/jquery_002.js"></script>
+<script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/bootstrap.js"></script>
+<script type="text/javascript" src="OpenCV%20Optical%20Character%20Recognition%20using%20Neural%20Network_files/custom.js"></script>
+		<script type="text/javascript">
+			// initialise plugins
+			jQuery(function(){
+				// main navigation init
+				jQuery('.navbar_inner > ul').superfish({
+					delay:       500, 		// one second delay on mouseout 
+					animation:   {opacity:"show", height:"show"}, // fade-in and slide-down animation
+					speed:       'fast',  // faster animation speed 
+					autoArrows:  false,   // generation of arrow mark-up (for submenu)
+					dropShadows: false
+				});
+				jQuery('.navbar_inner > div > ul').superfish({
+					delay:       500, 		// one second delay on mouseout 
+					animation:   {opacity:"show", height:"show"}, // fade-in and slide-down animation
+					speed:       'fast',  // faster animation speed 
+					autoArrows:  false,   // generation of arrow mark-up (for submenu)
+					dropShadows: false
+				});
+			});
+			jQuery(function(){
+			  var ismobile = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i)
+			  if(ismobile){
+			  	jQuery('.navbar_inner > ul').sftouchscreen();
+			  	jQuery('.navbar_inner > div > ul').sftouchscreen();
+			  }
+			});
+		</script>
+		<!--[if (gt IE 9)|!(IE)]><!-->
+		<script type="text/javascript">
+			jQuery(function(){
+				jQuery('.navbar_inner > ul').mobileMenu();
+			  	jQuery('.navbar_inner > div > ul').mobileMenu();
+			})
+		</script>
+		<!--<![endif]-->
+		
+
+
+
+
+
+
+</body></html>
+<!--
+     FILE ARCHIVED ON 1:42:58 Mar 20, 2015 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 23:38:29 Feb 23, 2016.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
