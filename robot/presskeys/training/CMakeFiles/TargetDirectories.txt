@@ -1,0 +1,2 @@
+/home/pi/robot/presskeys/training/CMakeFiles/trainNetwork.dir
+/home/pi/robot/presskeys/training/CMakeFiles/training.dir

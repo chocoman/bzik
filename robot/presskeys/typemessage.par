@@ -1,0 +1,12 @@
+280   MIN_SAFE_DISTANCE  //mm
+17    KEY_WIDTH
+-1    CRITICAL_INCL_LOW //sin(alpha)
+1     CRITICAL_INCL_HIGH //sin(alpha)
+1.2    TURNING_SPEED
+1   TURN_FORCE
+0.4   ANGLE_PRECISION
+40    DRIVING_SPEED //mm/s
+0.05   WARM_UP_TIME //s
+2.5   PRESS_TIME
+
+format: everything except numbers in the beginning of a line is ignored. The numbers define the parameters in order

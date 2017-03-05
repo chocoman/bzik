@@ -53,38 +53,73 @@ CMAKE_SOURCE_DIR = /home/pi/robot/presskeys
 CMAKE_BINARY_DIR = /home/pi/robot/presskeys
 
 #=============================================================================
-# Target rules for target CMakeFiles/presskeys.dir
+# Target rules for target CMakeFiles/typemessage.dir
 
 # All Build rule for target.
-CMakeFiles/presskeys.dir/all:
-	$(MAKE) -f CMakeFiles/presskeys.dir/build.make CMakeFiles/presskeys.dir/depend
-	$(MAKE) -f CMakeFiles/presskeys.dir/build.make CMakeFiles/presskeys.dir/build
+CMakeFiles/typemessage.dir/all:
+	$(MAKE) -f CMakeFiles/typemessage.dir/build.make CMakeFiles/typemessage.dir/depend
+	$(MAKE) -f CMakeFiles/typemessage.dir/build.make CMakeFiles/typemessage.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/pi/robot/presskeys/CMakeFiles  1
-	@echo "Built target presskeys"
-.PHONY : CMakeFiles/presskeys.dir/all
+	@echo "Built target typemessage"
+.PHONY : CMakeFiles/typemessage.dir/all
 
 # Include target in all.
-all: CMakeFiles/presskeys.dir/all
+all: CMakeFiles/typemessage.dir/all
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/presskeys.dir/rule: cmake_check_build_system
+CMakeFiles/typemessage.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/robot/presskeys/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/presskeys.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/typemessage.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/robot/presskeys/CMakeFiles 0
-.PHONY : CMakeFiles/presskeys.dir/rule
+.PHONY : CMakeFiles/typemessage.dir/rule
 
 # Convenience name for target.
-presskeys: CMakeFiles/presskeys.dir/rule
-.PHONY : presskeys
+typemessage: CMakeFiles/typemessage.dir/rule
+.PHONY : typemessage
 
 # clean rule for target.
-CMakeFiles/presskeys.dir/clean:
-	$(MAKE) -f CMakeFiles/presskeys.dir/build.make CMakeFiles/presskeys.dir/clean
-.PHONY : CMakeFiles/presskeys.dir/clean
+CMakeFiles/typemessage.dir/clean:
+	$(MAKE) -f CMakeFiles/typemessage.dir/build.make CMakeFiles/typemessage.dir/clean
+.PHONY : CMakeFiles/typemessage.dir/clean
 
 # clean rule for target.
-clean: CMakeFiles/presskeys.dir/clean
+clean: CMakeFiles/typemessage.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/writepos.dir
+
+# All Build rule for target.
+CMakeFiles/writepos.dir/all:
+	$(MAKE) -f CMakeFiles/writepos.dir/build.make CMakeFiles/writepos.dir/depend
+	$(MAKE) -f CMakeFiles/writepos.dir/build.make CMakeFiles/writepos.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/pi/robot/presskeys/CMakeFiles  2
+	@echo "Built target writepos"
+.PHONY : CMakeFiles/writepos.dir/all
+
+# Include target in all.
+all: CMakeFiles/writepos.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/writepos.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/robot/presskeys/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/writepos.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/robot/presskeys/CMakeFiles 0
+.PHONY : CMakeFiles/writepos.dir/rule
+
+# Convenience name for target.
+writepos: CMakeFiles/writepos.dir/rule
+.PHONY : writepos
+
+# clean rule for target.
+CMakeFiles/writepos.dir/clean:
+	$(MAKE) -f CMakeFiles/writepos.dir/build.make CMakeFiles/writepos.dir/clean
+.PHONY : CMakeFiles/writepos.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/writepos.dir/clean
 .PHONY : clean
 
 #=============================================================================

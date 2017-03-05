@@ -8,5 +8,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "/usr/local/lib/cmake")
 find_package(raspicam REQUIRED)
 
 
-add_executable (presskeys presskeys.cpp)  
-target_link_libraries (presskeys ${raspicam_CV_LIBS} ${OpenCV_LIBS})
+add_executable (writepos writepos.cpp)  
+target_link_libraries (writepos ${raspicam_CV_LIBS} ${OpenCV_LIBS})
+
+add_executable (typemessage typemessage.cpp)

@@ -1,1 +1,2 @@
-/home/pi/robot/presskeys/CMakeFiles/presskeys.dir
+/home/pi/robot/presskeys/CMakeFiles/typemessage.dir
+/home/pi/robot/presskeys/CMakeFiles/writepos.dir

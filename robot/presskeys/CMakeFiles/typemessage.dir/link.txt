@@ -1,0 +1,1 @@
+/usr/bin/c++    -std=c++11 -g    CMakeFiles/typemessage.dir/typemessage.cpp.o  -o typemessage  -L/usr/local/lib -rdynamic 

@@ -21,6 +21,10 @@ list
 -
 vector
 -
+algorithm
+-
+chrono
+-
 ctype.h
 -
 math.h
@@ -30,8 +34,6 @@ signal.h
 unistd.h
 -
 raspicam/raspicam_cv.h
--
-unistd.h
 -
 raspicam/raspicam_cv.h
 /home/pi/robot/presskeys/raspicam/raspicam_cv.h

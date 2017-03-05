@@ -44,5 +44,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/presskeys.dir/DependInfo.cmake"
+  "CMakeFiles/typemessage.dir/DependInfo.cmake"
+  "CMakeFiles/writepos.dir/DependInfo.cmake"
   )

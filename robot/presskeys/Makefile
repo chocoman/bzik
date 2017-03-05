@@ -103,41 +103,78 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named presskeys
+# Target rules for targets named typemessage
 
 # Build rule for target.
-presskeys: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 presskeys
-.PHONY : presskeys
+typemessage: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 typemessage
+.PHONY : typemessage
 
 # fast build rule for target.
-presskeys/fast:
-	$(MAKE) -f CMakeFiles/presskeys.dir/build.make CMakeFiles/presskeys.dir/build
-.PHONY : presskeys/fast
+typemessage/fast:
+	$(MAKE) -f CMakeFiles/typemessage.dir/build.make CMakeFiles/typemessage.dir/build
+.PHONY : typemessage/fast
 
-presskeys.o: presskeys.cpp.o
-.PHONY : presskeys.o
+#=============================================================================
+# Target rules for targets named writepos
+
+# Build rule for target.
+writepos: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 writepos
+.PHONY : writepos
+
+# fast build rule for target.
+writepos/fast:
+	$(MAKE) -f CMakeFiles/writepos.dir/build.make CMakeFiles/writepos.dir/build
+.PHONY : writepos/fast
+
+typemessage.o: typemessage.cpp.o
+.PHONY : typemessage.o
 
 # target to build an object file
-presskeys.cpp.o:
-	$(MAKE) -f CMakeFiles/presskeys.dir/build.make CMakeFiles/presskeys.dir/presskeys.cpp.o
-.PHONY : presskeys.cpp.o
+typemessage.cpp.o:
+	$(MAKE) -f CMakeFiles/typemessage.dir/build.make CMakeFiles/typemessage.dir/typemessage.cpp.o
+.PHONY : typemessage.cpp.o
 
-presskeys.i: presskeys.cpp.i
-.PHONY : presskeys.i
+typemessage.i: typemessage.cpp.i
+.PHONY : typemessage.i
 
 # target to preprocess a source file
-presskeys.cpp.i:
-	$(MAKE) -f CMakeFiles/presskeys.dir/build.make CMakeFiles/presskeys.dir/presskeys.cpp.i
-.PHONY : presskeys.cpp.i
+typemessage.cpp.i:
+	$(MAKE) -f CMakeFiles/typemessage.dir/build.make CMakeFiles/typemessage.dir/typemessage.cpp.i
+.PHONY : typemessage.cpp.i
 
-presskeys.s: presskeys.cpp.s
-.PHONY : presskeys.s
+typemessage.s: typemessage.cpp.s
+.PHONY : typemessage.s
 
 # target to generate assembly for a file
-presskeys.cpp.s:
-	$(MAKE) -f CMakeFiles/presskeys.dir/build.make CMakeFiles/presskeys.dir/presskeys.cpp.s
-.PHONY : presskeys.cpp.s
+typemessage.cpp.s:
+	$(MAKE) -f CMakeFiles/typemessage.dir/build.make CMakeFiles/typemessage.dir/typemessage.cpp.s
+.PHONY : typemessage.cpp.s
+
+writepos.o: writepos.cpp.o
+.PHONY : writepos.o
+
+# target to build an object file
+writepos.cpp.o:
+	$(MAKE) -f CMakeFiles/writepos.dir/build.make CMakeFiles/writepos.dir/writepos.cpp.o
+.PHONY : writepos.cpp.o
+
+writepos.i: writepos.cpp.i
+.PHONY : writepos.i
+
+# target to preprocess a source file
+writepos.cpp.i:
+	$(MAKE) -f CMakeFiles/writepos.dir/build.make CMakeFiles/writepos.dir/writepos.cpp.i
+.PHONY : writepos.cpp.i
+
+writepos.s: writepos.cpp.s
+.PHONY : writepos.s
+
+# target to generate assembly for a file
+writepos.cpp.s:
+	$(MAKE) -f CMakeFiles/writepos.dir/build.make CMakeFiles/writepos.dir/writepos.cpp.s
+.PHONY : writepos.cpp.s
 
 # Help Target
 help:
@@ -146,11 +183,15 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... presskeys"
 	@echo "... rebuild_cache"
-	@echo "... presskeys.o"
-	@echo "... presskeys.i"
-	@echo "... presskeys.s"
+	@echo "... typemessage"
+	@echo "... writepos"
+	@echo "... typemessage.o"
+	@echo "... typemessage.i"
+	@echo "... typemessage.s"
+	@echo "... writepos.o"
+	@echo "... writepos.i"
+	@echo "... writepos.s"
 .PHONY : help
 
 
